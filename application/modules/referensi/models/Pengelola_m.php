@@ -1,9 +1,9 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class User_m extends MY_Model
+class Pengelola_m extends MY_Model
 {
-	public $table = 'users'; // you MUST mention the table name
+	public $table = 'ref_pengelola'; // you MUST mention the table name
 	public $primary_key = 'id'; // you MUST mention the primary key
 	public $fillable = array(); // If you want, you can set an array with the fields that can be filled by insert/update
 	public $protected = array(); // ...Or you can set an array with the fields that cannot be filled by insert/update
@@ -11,7 +11,7 @@ class User_m extends MY_Model
 	//ajax datatable
     public $column_order = array(null); //set kolom field database pada datatable secara berurutan
     public $column_search = array(); //set kolom field database pada datatable untuk pencarian
-    public $order = array('id' => 'asc'); //order baku 
+    public $order = array('a.id' => 'ASC'); //order baku 
 	
 	public function __construct()
 	{
@@ -24,25 +24,22 @@ class User_m extends MY_Model
     {
         $record = new stdClass();
         $record->id = '';
-		$record->nip = '';
-		//$record->username = '';
-		$record->password = '';
-		$record->repassword = '';
-		$record->fullname = '';
+		$record->kode = '';
+		$record->instansi_id = '';
+        $record->pengelola = '';
+        $record->api = '';
+		$record->alamat = '';
 		$record->email = '';
 		$record->telpon = '';
-		$record->pengelola_id = '';
-		$record->level = '';
-		$record->active = '';
         return $record;
     }
 	
 	//urusan lawan datatable
     private function _get_datatables_query()
     {
-        $this->db->select('a.*, b.pengelola');
-		$this->db->from('users a');
-		$this->db->join('ref_pengelola b','a.pengelola_id = b.kode','LEFT');
+        $this->db->select('a.*, b.instansi');
+		$this->db->from('ref_pengelola a');
+		$this->db->join('ref_instansi b','b.kode = a.instansi_id','LEFT');
 		//$this->db->from($this->table);
         $i = 0;
         foreach ($this->column_search as $item) // loop column 
@@ -95,7 +92,7 @@ class User_m extends MY_Model
         $this->_get_datatables_query();
         if($_POST['length'] != -1)
         $this->db->where('a.deleted_at', NULL);
-        $this->db->limit($_POST['length'], $_POST['start']);
+		$this->db->limit($_POST['length'], $_POST['start']);
         $query = $this->db->get();
         return $query->result();
     }
@@ -105,45 +102,60 @@ class User_m extends MY_Model
         $this->db->where('id', $id);
 		$this->db->where('deleted_at', NULL);
         $query = $this->db->get($this->table);
-        return $query->row();
+		if($query->num_rows() > 0){
+			return $query->row();	
+		}else{
+			//show_404();
+			return FALSE;
+		}
+        
     }
 	
-	public function get_group()
+	public function get_instansi()
 	{
-        $query = $this->db->order_by('id', 'ASC')->get('groups');
+        $query = $this->db->where('deleted_at',NULL)->order_by('kode', 'ASC')->get('ref_instansi');
         if($query->num_rows() > 0){
-        $dropdown[''] = 'Pilih Group/Tingkatan Pengguna';
+        $dropdown[] = 'Pilih instansi Kerja';
 		foreach ($query->result() as $row)
 		{
-			$dropdown[$row->id] = $row->name;
+			$dropdown[$row->kode] = $row->kode.' - '.$row->instansi;
 		}
         }else{
-            $dropdown[''] = 'Belum Ada Group/Tingkatan Pengguna Tersedia'; 
+            $dropdown[] = 'Belum Ada Instansi Tersedia'; 
         }
 		return $dropdown;
 	}
 	
-	public function get_pengelola()
+	public function get_unker($instansi=null)
 	{
 		$this->db->where('deleted_at',NULL);
-        $query = $this->db->order_by('kode', 'ASC')->get('ref_pengelola');
+        $this->db->where('instansi', $instansi);
+        $query = $this->db->order_by('kode', 'ASC')->get('ref_unker');
         if($query->num_rows() > 0){
-        $dropdown['00000'] = 'Semua Pengelola/Urusan';
+        $dropdown[] = 'Pilih Unit Kerja';
 		foreach ($query->result() as $row)
 		{
-			$dropdown[$row->kode] = $row->kode.' - '.$row->pengelola;
+			$dropdown[$row->kode] = $row->kode.' - '.$row->unker;
 		}
         }else{
-            $dropdown[''] = 'Belum Ada Pengelola/Urusan Tersedia';
+            $dropdown[] = 'Belum Ada Unit Kerja Tersedia';
         }
 		return $dropdown;
 	}
 	
-	
-	public function insert_data($data)
-	{
-		$this->db->insert($this->table, $data);
-		return $this->db->insert_id();
-	}
-
+	public function get_kode() {
+		$query = $this->db->query("SELECT MAX(RIGHT(kode,5)) AS kode FROM bpsdm_ref_pengelola");
+		$kode = "";
+	  
+		if($query->num_rows() > 0){ 
+			  foreach($query->result() as $k){
+				  $tmp = ((int)$k->kode)+1;
+				  $kode = sprintf("%05s", $tmp);
+			  }
+		 }else{
+		  $kode = "00001";
+		}
+		$karakter = "P"; 
+		return $karakter.$kode;
+    }
 }

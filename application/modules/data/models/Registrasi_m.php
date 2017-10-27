@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class User_m extends MY_Model
+class Registrasi_m extends MY_Model
 {
 	public $table = 'users'; // you MUST mention the table name
 	public $primary_key = 'id'; // you MUST mention the primary key
@@ -95,6 +95,7 @@ class User_m extends MY_Model
         $this->_get_datatables_query();
         if($_POST['length'] != -1)
         $this->db->where('a.deleted_at', NULL);
+        $this->db->where('level', 4);
         $this->db->limit($_POST['length'], $_POST['start']);
         $query = $this->db->get();
         return $query->result();

@@ -22,11 +22,11 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="#"><b>SIMPEG</b>KALSEL</a>
+    <a href="#"><b>SIDA</b>KALIBARASI</a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
-    <p class="login-box-msg">Silahkan Login Terlebih Dahulu.</p>
+    <p class="login-box-msg">BPSDM - Provinsi Kalimantan Selatan</p>
 	<?php if($this->session->flashdata('flashconfirm')): ?>
 	<div class="alert alert-success alert-dismissable">
 	  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -65,7 +65,6 @@
       </div>
     <?= form_close(); ?>
     <a href="#"></a><br>
-    <img src="<?= base_url('asset/dist/img/RapidSSL_SEAL-90x50.gif'); ?>">
   </div>
   <!-- /.login-box-body -->
 </div>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title><?= isset($title) ? $title : 'SIMPEG KALSEL'; ?></title>
+  <title><?= isset($title) ? $title : 'BPSDM Provinsi Kalimantan Selatan'; ?></title>
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <link rel="stylesheet" href="<?= base_url('asset/bootstrap/css/bootstrap.min.css'); ?>">
   <link rel="stylesheet" href="<?= base_url('asset/plugins/datatables/dataTables.bootstrap.css'); ?>">
@@ -16,7 +16,7 @@
   <link rel="stylesheet" href="<?= base_url('asset/dist/css/AdminLTE.min.css'); ?>">
   <link rel="stylesheet" href="<?= base_url('asset/dist/css/skins/_all-skins.min.css'); ?>">
 	<script src="<?= base_url('asset/plugins/pace/pace.min.js'); ?>"></script>
-  <link rel="stylesheet" href="<?= base_url('asset/plugins/pace/themes/blue/pace-theme-loading-bar.css'); ?>" />
+  <link rel="stylesheet" href="<?= base_url('asset/plugins/pace/themes/blue/pace-theme-flash.css'); ?>" />
   <?= isset($style) ? $this->load->view($style) : ''; ?>
 	<!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -26,13 +26,13 @@
 	
 </head>
 <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
-<body class="hold-transition skin-green layout-top-nav">
+<body class="hold-transition skin-blue-light layout-top-nav">
 <div class="wrapper">
   <header class="main-header">
     <nav class="navbar navbar-static-top">
       <div class="container">
         <div class="navbar-header">
-          <a href="#" class="navbar-brand"><b>SIM</b>PEG</a>
+          <a href="#" class="navbar-brand"><b>SIDA</b></a>
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
             <i class="fa fa-bars"></i>
           </button>
@@ -41,64 +41,43 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
           <ul class="nav navbar-nav">
-            <li><a href="<?= site_url('dashboard'); ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-						<li><a href="<?= site_url('data/pegawai'); ?>"><i class="fa fa-book"></i> Data Pokok</a></li>
-						<li><a href="<?= site_url('lapkin'); ?>"><i class="fa fa-cloud-upload"></i> E-Lapkin</a></li>
-						<li><a href="<?= site_url('sotk'); ?>"><i class="fa fa-sitemap"></i> SOTK</a></li>
-						<li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-folder"></i> Data Referensi <span class="caret"></span></a>
+            <li><a href="<?= site_url('dashboard'); ?>"><i class="fa fa-dashboard"></i> Beranda</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-book"></i> Data<span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="<?= site_url('referensi/agama'); ?>"><i class="fa fa-plus-square-o"></i> Referensi Agama</a></li>
-								<li><a href="<?= site_url('referensi/pekerjaan'); ?>"><i class="fa fa-plus-square-o"></i> Referensi Pekerjaan</a></li>
-								<li><a href="<?= site_url('referensi/profesi'); ?>"><i class="fa fa-plus-square-o"></i> Referensi Profesi</a></li>
-								<li><a href="<?= site_url('referensi/ktpu'); ?>"><i class="fa fa-plus-square-o"></i> Referensi Tingkat Pendidikan</a></li>
-								<li><a href="<?= site_url('referensi/organisasi'); ?>"><i class="fa fa-plus-square-o"></i> Referensi Jenis Organisasi</a></li>
+                <li><a href="<?= site_url('data/registrasi'); ?>"><i class="fa fa-file-text-o"></i> Data Registrasi</a></li>
+                <li><a href="<?= site_url('data/registrasi#'); ?>"><i class="fa fa-file-text-o"></i> Data Permohonan Diklat</a></li>
+              </ul>
+            </li>
+            <li><a href="<?= site_url('#'); ?>"><i class="fa fa-file-text"></i> Pendaftaran Diklat</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-database"></i> Data Master <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="<?= site_url('referensi/instansi'); ?>"><i class="fa fa-plus-square-o"></i> Referensi Instansi</a></li>
+                <li><a href="<?= site_url('referensi/pengelola'); ?>"><i class="fa fa-plus-square-o"></i> Referensi Pengelola</a></li>
+                <li><a href="<?= site_url('referensi/pangkat'); ?>"><i class="fa fa-plus-square-o"></i> Referensi Tingkat Golongan</a></li>
+                <li><a href="<?= site_url('referensi/eselon'); ?>"><i class="fa fa-plus-square-o"></i> Referensi Tingkat Jabatan</a></li>
+                <li><a href="<?= site_url('referensi/ktpu'); ?>"><i class="fa fa-plus-square-o"></i> Referensi Tingkat Pendidikan</a></li>
 								<li><a href="<?= site_url('referensi/diklat'); ?>"><i class="fa fa-plus-square-o"></i> Referensi Diklat Struktural</a></li>
-								<li class="divider"></li>
-								<li><a href="<?= site_url('referensi/instansi'); ?>"><i class="fa fa-plus-square-o"></i> Referensi Instansi</a></li>
-								<li><a href="<?= site_url('referensi/unker'); ?>"><i class="fa fa-plus-square-o"></i> Referensi Unit Kerja</a></li>
-								<li><a href="<?= site_url('referensi/satker'); ?>"><i class="fa fa-plus-square-o"></i> Referensi Satuan Kerja</a></li>
-								<li><a href="<?= site_url('referensi/eselon'); ?>"><i class="fa fa-plus-square-o"></i> Referensi Tingkat Jabatan</a></li>
-								<li><a href="<?= site_url('referensi/jabatan'); ?>"><i class="fa fa-plus-square-o"></i> Referensi Jabatan</a></li>
-								<li class="divider"></li>
-								<li><a href="<?= site_url('referensi/kedudukan'); ?>"><i class="fa fa-plus-square-o"></i> Referensi Kedudukan Pegawai</a></li>
-								<li><a href="<?= site_url('referensi/status'); ?>"><i class="fa fa-plus-square-o"></i> Referensi Status Pegawai</a></li>
-								<li><a href="<?= site_url('referensi/jenis'); ?>"><i class="fa fa-plus-square-o"></i> Referensi Jenis Pegawai</a></li>
-								<li><a href="<?= site_url('referensi/pangkat'); ?>"><i class="fa fa-plus-square-o"></i> Referensi Golongan Pegawai</a></li>
               </ul>
             </li>
 						<li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-print"></i> Laporan <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="<?= site_url('report/pangkat'); ?>" target="_BLANK"><i class="fa fa-file-text-o"></i> Laporan Nominatif Pangkat</a></li>
-                <li><a href="<?= site_url('report/pkt'); ?>"><i class="fa fa-file-text-o"></i> Laporan Nominatif Pangkat SOPD</a></li>
-								<li><a href="<?= site_url('report/jabatan'); ?>" target="_BLANK"><i class="fa fa-file-text-o"></i> Laporan Nominatif Tingkat Jabatan</a></li>
-								<li class="divider"></li>
-								<li><a href="<?= site_url('report/peta'); ?>"><i class="fa fa-file-text-o"></i> Laporan Pemetaan</a></li>
-								<li><a href="<?= site_url('report/analisa'); ?>"><i class="fa fa-file-text-o"></i> Laporan Analisa Jabatan</a></li>
-                <li class="divider"></li>
-								<li><a href="#"><i class="fa fa-file-text-o"></i> Daftar Jaga Pangkat</a></li>
-								<li><a href="<?= site_url('report/pensiun'); ?>"><i class="fa fa-file-text-o"></i> Daftar Jaga Pensiun</a></li>
-								<li class="divider"></li>
-                <li><a href="#"><i class="fa fa-file-text-o"></i> Rekapitulasi Agama</a></li>
-								<li><a href="#"><i class="fa fa-file-text-o"></i> Rekapitulasi Pendidikan</a></li>
-								<li><a href="#"><i class="fa fa-file-text-o"></i> Rekapitulasi Golongan</a></li>
-								<li><a href="#"><i class="fa fa-file-text-o"></i> Rekapitulasi Status</a></li>
+                <li><a href="<?= site_url('report/#'); ?>" target="_BLANK"><i class="fa fa-file-text-o"></i> Laporan Registrasi</a></li>
               </ul>
             </li>
-						<li><a href="#"><i class="fa fa-ticket"></i> Tiket Layanan</a></li>
+						<li><a href="<?= site_url('setting/informasi'); ?>"><i class="fa fa-feed"></i> Informasi</a></li>
+						<li><a href="#"><i class="fa fa-envelope-o"></i> F.A.Q</a></li>
 						<li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gears"></i> Pengaturan <span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
 								<li><a href="<?= site_url('setting/user'); ?>"><i class="fa fa-users"></i> Pengguna</a></li>
-								<li><a href="<?= site_url('setting/folder'); ?>"><i class="fa fa-folder"></i> Manajeman File</a></li>
-								<li><a href="<?= site_url('setting/informasi'); ?>"><i class="fa fa-file-text-o"></i> Manajemen Informasi</a></li>
-								
-								<li><a href="<?= site_url('setting/log'); ?>"><i class="fa fa-tasks"></i> Log Pengguna</a></li>
+								<li><a href="<?= site_url('setting/log'); ?>"><i class="fa fa-tasks"></i> Log Aktifitas</a></li>
 								<li><a href="<?= site_url('setting/backup'); ?>"><i class="fa fa-database"></i> Backup Database</a></li>
               </ul>
 						</li>
-						<li><a href="<?= site_url('logout'); ?>"><i class="fa fa-sign-out"></i> Keluar</a></li>
+            <li><a href="<?= site_url('logout'); ?>"><i class="fa fa-sign-out"></i> Keluar</a></li>
           </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -109,14 +88,14 @@
             <li class="dropdown user user-menu">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <img src="<?= base_url('asset/dist/img/avatar5.png'); ?>" class="user-image" alt="User Image">
-                <span class="hidden-xs"><?= $this->session->userdata('username'); ?></span>
+                <span class="hidden-xs">&nbsp;</span>
               </a>
               <ul class="dropdown-menu">
                 <li class="user-header">
                   <img src="<?= base_url('asset/dist/img/avatar5.png'); ?>" class="img-circle" alt="User Image">
 								  <p>
-                    Login Simpeg
-                    <small>Versi 3.0 2017</small>
+                    SIDA KALIBRASI
+                    <small>Versi Lite 1.0 2017</small>
                   </p>
                 </li>
                 <!-- Menu Body -->
@@ -141,7 +120,7 @@
     <div class="container">
       <!-- Content Header (Page header) -->
       <section class="content-header">
-        <h1>SIMPEG KALSEL<small>Beta 3.0</small></h1>
+        <h1>SIDA KALIBRASI<small>LITE 1.0</small></h1>
         <ol class="breadcrumb">
           <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
         </ol>
@@ -158,15 +137,14 @@
   <footer class="main-footer">
     <div class="container">
       <div class="pull-right hidden-xs">
-        <b>Version</b> Beta 3.0
+        <b>Version</b> Lite 1.0
       </div>
-      <strong>Copyright &copy; 2016-2017 <a href="#">Badan Kepegawaian Daerah Provinsi Kalimantan Selatan</a>.</strong> All rights
+      <strong>Copyright &copy; 2017 <a href="#">BPSDM Provinsi Kalimantan Selatan</a>.</strong> All rights
       reserved.
     </div>
   </footer>
 </div>
 <!-- ./wrapper -->
-
 <script src="<?= base_url('asset/plugins/jQuery/jquery-2.2.3.min.js'); ?>"></script>
 <script src="<?= base_url('asset/bootstrap/js/bootstrap.min.js'); ?>"></script>
 <script src="<?= base_url('asset/plugins/slimScroll/jquery.slimscroll.min.js'); ?>"></script>

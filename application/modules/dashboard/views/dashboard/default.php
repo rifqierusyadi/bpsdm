@@ -12,7 +12,7 @@
 		  <i class="icon fa fa-info"></i> Perhatian! <?php echo $this->session->flashdata('flasherror'); ?>.
 		</div>
 		<?php endif; ?>
-		<div class="box box-success box-solid">
+		<div class="box box-primary box-solid">
 			<div class="box-header with-border">
 				<h3 class="box-title"><?= isset($head) ? $head : ''; ?></h3>
 				<div class="box-tools pull-right">
@@ -23,10 +23,53 @@
 			<!-- box-body -->
 			<div class="box-body">
 				<div class="row">
-					<div class="col-md-12">
-						<p>Selamat datang pada simpeg versi Beta 3.0</p>
-						<p>Ini merupakan versi pengembangan dimana pada semester 4 terdapat modul pengembangan laporan kinerja per skpd, pembaharuan keamanan login dan permission, desain sistem untuk di pergunakan seluruh ASN di lingkungan provinsi kalimantan selatan, desain API untuk keperluan pengembangan aplikasi pihak instansi lain di luar Badan Kepegawaian Daerah Provinsi Kalimantan Selatan yang menggunakan data kepegawaian SIMPEG.</p>
-						<p>IT Data dan Informasi</p>
+					<div class="col-md-3">
+					<div class="small-box bg-green">
+						<div class="inner">
+							<h3>&nbsp;</h3>
+							<p>Data Registrasi</p>
+						</div>
+						<div class="icon">
+							<i class="ion ion-person-stalker"></i>
+						</div>
+						<a href="#" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
+					</div>
+					</div>
+					<div class="col-md-3">
+					<div class="small-box bg-yellow">
+						<div class="inner">
+							<h3>&nbsp;</h3>
+							<p>Pendaftaran Diklat</p>
+						</div>
+						<div class="icon">
+							<i class="ion ion-ios-list-outline"></i>
+						</div>
+						<a href="#" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
+					</div>
+					</div>
+					<div class="col-md-3">
+					<div class="small-box bg-aqua">
+						<div class="inner">
+							<h3>&nbsp;</h3>
+							<p>Informasi</p>
+						</div>
+						<div class="icon">
+							<i class="ion ion-ios-paper"></i>
+						</div>
+						<a href="#" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
+					</div>
+					</div>
+					<div class="col-md-3">
+					<div class="small-box bg-red">
+						<div class="inner">
+							<h3>&nbsp;</h3>
+							<p>Tanya Jawab</p>
+						</div>
+						<div class="icon">
+							<i class="ion ion-android-mail"></i>
+						</div>
+						<a href="#" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
+					</div>
 					</div>
 				</div>
 			</div>

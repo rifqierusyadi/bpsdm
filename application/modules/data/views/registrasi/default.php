@@ -21,12 +21,13 @@
 							<thead>
 								<tr>
 									<th width="5px"><input type="checkbox" id="check-all"></th>
+									<th>NIP</th>
 									<th>Nama Lengkap</th>
 									<th>Email</th>
-									<th>Pengelola/Urusan</th>
+									<th>Pengelola/Urusan Kepegawaian</th>
 									<th>Level</th>
 									<th>Active</th>
-									<th width="60px"></th>
+									<th>Verify</th>
 								</tr>
 							</thead>
 							<tbody>

@@ -23,7 +23,7 @@ class Informasi extends CI_Controller {
 	public function index()
 	{
 		ini_set('memory_limit', '-1');
-		$data['head'] 		= 'Pengaturan Pengguna';
+		$data['head'] 		= 'Manajemen Informasi';
 		$data['record'] 	= $this->data->get_all();
 		$data['content'] 	= $this->folder.'default';
 		$data['style'] 		= $this->folder.'style';
@@ -34,26 +34,22 @@ class Informasi extends CI_Controller {
 	
 	public function created()
 	{
-		$data['head'] 		= 'Tambah Pengaturan Pengguna';
+		$data['head'] 		= 'Tambah Manajemen Informasi';
 		$data['record'] 	= $this->data->get_new();
 		$data['content'] 	= $this->folder.'form';
 		$data['style'] 		= $this->folder.'style';
 		$data['js'] 		= $this->folder.'js';
-		$data['unker'] 		= $this->data->get_unker();
-		$data['group'] 		= $this->data->get_group();
 		
 		$this->load->view('template/default', $data);
 	}
 	
 	public function updated($id)
 	{
-		$data['head'] 		= 'Ubah Pengaturan Pengguna';
+		$data['head'] 		= 'Ubah Manajemen Informasi';
 		$data['record'] 	= $this->data->get_id($id);
 		$data['content'] 	= $this->folder.'form';
 		$data['style'] 		= $this->folder.'style';
 		$data['js'] 		= $this->folder.'js';
-		$data['unker'] 		= $this->data->get_unker();
-		$data['group'] 		= $this->data->get_group();
 		
 		$this->load->view('template/default', $data);
 	}
@@ -95,12 +91,12 @@ class Informasi extends CI_Controller {
         $data = array(
                 'judul' => $this->input->post('judul'),
 				'informasi' => $this->input->post('informasi'),
-				'tanggal' => $this->input->post('tanggal'),
+				'tanggal' => yyyymmdd($this->input->post('tanggal')),
             );
         
         if($this->validation()){
             $insert = $this->data->insert($data);
-			helper_log("add", "Menambah Pengaturan Pengguna");
+			helper_log("add", "Menambah Manajemen Informasi");
         }
     }
     
@@ -109,19 +105,19 @@ class Informasi extends CI_Controller {
         $data = array(
                 'judul' => $this->input->post('judul'),
 				'informasi' => $this->input->post('informasi'),
-				'tanggal' => $this->input->post('tanggal'),
+				'tanggal' => yyyymmdd($this->input->post('tanggal')),
             );
 		
         if($this->validation($id)){
             $this->data->update($data, $id);
-			helper_log("edit", "Merubah Pengaturan Pengguna");
+			helper_log("edit", "Merubah Manajemen Informasi");
         }
     }
     
     public function ajax_delete($id)
     {
         $this->data->delete($id);
-		helper_log("trash", "Menghapus Pengaturan Pengguna");
+		helper_log("trash", "Menghapus Manajemen Informasi");
         echo json_encode(array("status" => TRUE));
     }
     
@@ -130,7 +126,7 @@ class Informasi extends CI_Controller {
         $list_id = $this->input->post('id');
         foreach ($list_id as $id) {
             $this->data->delete($id);
-			helper_log("trash", "Menghapus Pengaturan Pengguna");
+			helper_log("trash", "Menghapus Manajemen Informasi");
         }
         echo json_encode(array("status" => TRUE));
     }

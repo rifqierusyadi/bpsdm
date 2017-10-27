@@ -1,19 +1,19 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class User extends CI_Controller {
+class Registrasi extends CI_Controller {
 
 	/**
 	 * code by rifqie rusyadi
 	 * email rifqie.rusyadi@gmail.com
 	 */
 	
-	public $folder = 'setting/user/';
+	public $folder = 'data/registrasi/';
 	
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('user_m', 'data');
+		$this->load->model('registrasi_m', 'data');
 		signin();
 		group(array('1'));
 	}
@@ -22,7 +22,7 @@ class User extends CI_Controller {
 	public function index()
 	{
 		ini_set('memory_limit', '-1');
-		$data['head'] 		= 'Pengaturan Pengguna';
+		$data['head'] 		= 'Daftar Registrasi';
 		$data['record'] 	= $this->data->get_all();
 		$data['content'] 	= $this->folder.'default';
 		$data['style'] 		= $this->folder.'style';
@@ -33,7 +33,7 @@ class User extends CI_Controller {
 	
 	public function created()
 	{
-		$data['head'] 		= 'Tambah Pengaturan Pengguna';
+		$data['head'] 		= 'Tambah Daftar Registrasi';
 		$data['record'] 	= $this->data->get_new();
 		$data['content'] 	= $this->folder.'form';
 		$data['style'] 		= $this->folder.'style';
@@ -46,7 +46,7 @@ class User extends CI_Controller {
 	
 	public function updated($id)
 	{
-		$data['head'] 		= 'Ubah Pengaturan Pengguna';
+		$data['head'] 		= 'Ubah Daftar Registrasi';
 		$data['record'] 	= $this->data->get_id($id);
 		$data['content'] 	= $this->folder.'form_edit';
 		$data['style'] 		= $this->folder.'style';
@@ -68,16 +68,16 @@ class User extends CI_Controller {
             $no++;
             $col = array();
             $col[] = '<input type="checkbox" class="data-check" value="'.$row->id.'">';
-            $col[] = $row->fullname;
+			$col[] = $row->nip;
+			$col[] = $row->fullname;
 			$col[] = $row->email;
 			$col[] = $row->pengelola ? $row->pengelola : 'Semua';
 			$col[] = level($row->level);
 			$col[] = $row->active ? '<a type="button" class="btn btn-xs btn-flat btn-success"><i class="fa fa-check-circle"></i> </a>' : '<a type="button" class="btn btn-xs btn-flat btn-danger"><i class="fa fa-circle-o"></i> </a>';
-			
+			$col[] = $row->verify ? '<button type="button" class="btn btn-xs btn-flat btn-success"><i class="fa fa-check-circle"></i> </button>' : '<button type="button" class="btn btn-xs btn-flat btn-danger"><i class="fa fa-circle-o"></i> </button>';
+            
             //add html for action
-            $col[] = '<a class="btn btn-xs btn-flat btn-info" onclick="edit_data();" href="'.site_url('setting/password/updated/'.$row->id).'" data-toggle="tooltip" title="Ganti Password"><i class="fa fa-key"></i></a> <a class="btn btn-xs btn-flat btn-warning" onclick="edit_data();" href="'.site_url('setting/user/updated/'.$row->id).'" data-toggle="tooltip" title="Edit"><i class="glyphicon glyphicon-pencil"></i></a>
-                  <a class="btn btn-xs btn-flat btn-danger" data-toggle="tooltip" title="Hapus" onclick="deleted('."'".$row->id."'".')"><i class="glyphicon glyphicon-trash"></i></a>';
- 
+            
             $data[] = $col;
         }
  
@@ -105,7 +105,7 @@ class User extends CI_Controller {
         
         if($this->validation()){
             $insert = $this->data->insert($data);
-			helper_log("add", "Menambah Pengaturan Pengguna");
+			helper_log("add", "Menambah Daftar Registrasi");
         }
     }
     
@@ -122,14 +122,14 @@ class User extends CI_Controller {
 		
         if($this->validation($id)){
             $this->data->update($data, $id);
-			helper_log("edit", "Merubah Pengaturan Pengguna");
+			helper_log("edit", "Merubah Daftar Registrasi");
         }
     }
     
     public function ajax_delete($id)
     {
         $this->data->delete($id);
-		helper_log("trash", "Menghapus Pengaturan Pengguna");
+		helper_log("trash", "Menghapus Daftar Registrasi");
         echo json_encode(array("status" => TRUE));
     }
     
@@ -138,7 +138,7 @@ class User extends CI_Controller {
         $list_id = $this->input->post('id');
         foreach ($list_id as $id) {
             $this->data->delete($id);
-			helper_log("trash", "Menghapus Pengaturan Pengguna");
+			helper_log("trash", "Menghapus Daftar Registrasi");
         }
         echo json_encode(array("status" => TRUE));
     }
@@ -152,7 +152,7 @@ class User extends CI_Controller {
 			$this->form_validation->set_rules("password", "Password", "trim|required|min_length[6]|max_length[18]");
 			$this->form_validation->set_rules("repassword", "Ulangi Password", "trim|required|matches[password]");
 		}else{
-			//$this->form_validation->set_rules("username", "Username", "trim|required");
+			//$this->form_validation->set_rules("registrasiname", "Username", "trim|required");
 		}
         
 		$this->form_validation->set_rules("fullname", "Nama Lengkap", "trim|required");

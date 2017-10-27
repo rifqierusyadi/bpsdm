@@ -20,7 +20,7 @@ class Auth extends CI_Controller {
 	{
 		//echo password_hash('admin', PASSWORD_BCRYPT);
 		
-		$data['title'] 		= 'SIMPEG KALSEL';
+		$data['title'] 		= 'BPSDM-Provinsi Kalimantan Selatan';
 		$data['record'] 	= $this->data->get_all();
 		$data['content'] 	= $this->folder.'default';
 		$data['style'] 		= $this->folder.'style';
@@ -45,12 +45,13 @@ class Auth extends CI_Controller {
 				
 				$user_ID = $this->_get_userID($email_post);
 				$username = $this->_get_username($email_post);
+				$fullname = $this->_get_fullname($email_post);
 				$ip_address = $this->input->ip_address();
 				$level = $this->_get_level($email_post);
 				
 				$create_session = array(
 					'userID'=> $user_ID,
-					'username' => $username,
+					'fullname' => $fullname,
 					'ip_address'=> $ip_address,
 					'signin' => TRUE,
 					'level' => $level
@@ -84,6 +85,11 @@ class Auth extends CI_Controller {
 		$username = $this->data->get_username($email_post);
 		return $username;
 	}
+
+	private function _get_fullname($email_post){
+		$username = $this->data->get_fullname($email_post);
+		return $username;
+	}
 	
 	private function _get_level($email_post){
 		$level = $this->data->get_level($email_post);
@@ -101,6 +107,6 @@ class Auth extends CI_Controller {
 		$this->session->unset_userdata('password');
 		$this->session->sess_destroy();
 		helper_log("logout", "Logout Pada Sistem");
-		redirect('login');
+		redirect('home/dashboard');
 	}
 }
