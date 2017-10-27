@@ -54,11 +54,15 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-database"></i> Data Master <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
                 <li><a href="<?= site_url('referensi/instansi'); ?>"><i class="fa fa-plus-square-o"></i> Referensi Instansi</a></li>
-                <li><a href="<?= site_url('referensi/pengelola'); ?>"><i class="fa fa-plus-square-o"></i> Referensi Pengelola</a></li>
+                <li><a href="<?= site_url('referensi/pengelola'); ?>"><i class="fa fa-plus-square-o"></i> Referensi Pengelola Kepegawaian</a></li>
+                <li class="divider"></li>
                 <li><a href="<?= site_url('referensi/pangkat'); ?>"><i class="fa fa-plus-square-o"></i> Referensi Tingkat Golongan</a></li>
                 <li><a href="<?= site_url('referensi/eselon'); ?>"><i class="fa fa-plus-square-o"></i> Referensi Tingkat Jabatan</a></li>
                 <li><a href="<?= site_url('referensi/ktpu'); ?>"><i class="fa fa-plus-square-o"></i> Referensi Tingkat Pendidikan</a></li>
-								<li><a href="<?= site_url('referensi/diklat'); ?>"><i class="fa fa-plus-square-o"></i> Referensi Diklat Struktural</a></li>
+								<li class="divider"></li>
+                <li><a href="<?= site_url('referensi/jenis'); ?>"><i class="fa fa-plus-square-o"></i> Referensi Jenis Jabatan</a></li>
+                <li><a href="<?= site_url('referensi/jenjang'); ?>"><i class="fa fa-plus-square-o"></i> Referensi Jejang Jabatan</a></li>
+                <li><a href="<?= site_url('referensi/diklat'); ?>"><i class="fa fa-plus-square-o"></i> Referensi Jenis Diklat</a></li>
               </ul>
             </li>
 						<li class="dropdown">
