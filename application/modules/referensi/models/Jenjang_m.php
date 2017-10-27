@@ -1,17 +1,17 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Jenis_m extends MY_Model
+class Jenjang_m extends MY_Model
 {
-	public $table = 'ref_jenis'; // you MUST mention the table name
+	public $table = 'ref_jenjang'; // you MUST mention the table name
 	public $primary_key = 'id'; // you MUST mention the primary key
 	public $fillable = array(); // If you want, you can set an array with the fields that can be filled by insert/update
 	public $protected = array(); // ...Or you can set an array with the fields that cannot be filled by insert/update
 	
 	//ajax datatable
-    public $column_order = array('id','jenis',null); //set kolom field database pada datatable secara berurutan
-    public $column_search = array('jenis',); //set kolom field database pada datatable untuk pencarian
-    public $order = array('jenis' => 'asc'); //order baku 
+    public $column_order = array('a.id','b.jenis','a.jenjang',null); //set kolom field database pada datatable secara berurutan
+    public $column_search = array('a.jenjang','b.jenis'); //set kolom field database pada datatable untuk pencarian
+    public $order = array('a.id' => 'asc'); //order baku 
 	
 	public function __construct()
 	{
@@ -24,15 +24,18 @@ class Jenis_m extends MY_Model
     {
         $record = new stdClass();
         $record->id = '';
-		$record->eselon_id = '';
-		$record->jenis = '';
+		$record->jenis_id = '';
+		$record->jenjang = '';
         return $record;
     }
 	
 	//urusan lawan datatable
     private function _get_datatables_query()
     {
-        $this->db->from($this->table);
+        $this->db->select('a.id, a.jenis_id, a.jenjang, b.jenis');
+        $this->db->from('ref_jenjang a');
+        $this->db->join('ref_jenis b','a.jenis_id = b.id','LEFT');
+        //$this->db->from($this->table);
         $i = 0;
         foreach ($this->column_search as $item) // loop column 
         {
@@ -83,7 +86,7 @@ class Jenis_m extends MY_Model
     {
         $this->_get_datatables_query();
         if($_POST['length'] != -1)
-        $this->db->where('deleted_at', NULL);
+        $this->db->where('a.deleted_at', NULL);
         $this->db->limit($_POST['length'], $_POST['start']);
         $query = $this->db->get();
         return $query->result();
@@ -97,18 +100,18 @@ class Jenis_m extends MY_Model
         return $query->row();
     }
 
-    public function get_eselon($eselon=null)
+    public function get_jenis($jenis=null)
 	{
 		$this->db->where('deleted_at',NULL);
-        $query = $this->db->order_by('kode', 'ASC')->get('ref_eselon');
+        $query = $this->db->order_by('jenis', 'ASC')->get('ref_jenis');
         if($query->num_rows() > 0){
-        $dropdown[] = 'Pilih Tingkat Jabatan';
+        $dropdown[] = 'Pilih Jenis Jabatan';
 		foreach ($query->result() as $row)
 		{
-			$dropdown[$row->kode] = $row->eselon.' - '.$row->jabatan;
+			$dropdown[$row->id] = $row->jenis;
 		}
         }else{
-            $dropdown[] = 'Belum Ada Tingkat Jabatan Tersedia';
+            $dropdown[] = 'Belum Ada Jenis Jabatan Tersedia';
         }
 		return $dropdown;
 	}
