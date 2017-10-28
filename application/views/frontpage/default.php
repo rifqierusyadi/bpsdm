@@ -23,6 +23,7 @@
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
   <?= isset($style) ? $this->load->view($style) : ''; ?>
+  <style>.logo{float:left; margin:3px;}.title{font-size:20px;font-weight:600;}.subtitle{font-size:13px;}</style>
 </head>
 <body>
 <div class="wrapper">
@@ -32,7 +33,9 @@
     <div class="row">
       <div class="col-xs-12">
         <h2 class="page-header">
-          <i class="fa fa-globe"></i> SIDA KALIBRASI
+          <img class="logo" src="<?= base_url('asset/dist/img/kalsel-114.png'); ?>">
+          <div class="title"> SIDA KALIBRASI</div>
+          <div class="subtitle">Badan Pengembangan Sumber Daya Manusia<br>Pemerintah Provinsi Kalimantan Selatan</div>
         </h2>
       </div>
       <!-- /.col -->
@@ -40,10 +43,6 @@
     
     <!-- Table row -->
     <div class="row">
-      <div class="col-md-12">
-       <small class="pull-right"><a href="<?= site_url('login'); ?>" class="btn btn-primary btn-xs btn-flat"><i class="fa fa-sign-in"></i> Login</a></small>
-      </div>
-      <br>
       <br>
       <div class="col-md-3">
       <div class="callout callout-success">
@@ -51,8 +50,7 @@
         <a href="<?= site_url('home/registrasi'); ?>" class="btn btn-block btn-social btn-bitbucket"><i class="fa fa-file-text"></i> Registrasi</a>
         <a href="#" class="btn btn-block btn-social btn-bitbucket"><i class="fa fa-check-square-o"></i> Syarat Ketentuan</a>
         <a href="<?= site_url('home/kontak'); ?>" class="btn btn-block btn-social btn-bitbucket"><i class="fa fa-envelope-o"></i> Kontak</a>
-
-
+        <a href="<?= site_url('login'); ?>" class="btn btn-block btn-social btn-bitbucket"><i class="fa fa-sign-in"></i> Login</a>
       </div>
       </div>
       <div class="col-md-9">
@@ -60,7 +58,7 @@
       </div>
       <!-- /.col -->
     </div>
-
+    <hr>
     <div class="container" style="text-align:center !important;">
       <strong>Copyright &copy; 2017 <a href="#">BPSDM Provinsi Kalimantan Selatan</a>.</strong> All rights
       reserved.
