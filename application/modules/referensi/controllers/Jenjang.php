@@ -47,7 +47,7 @@ class Jenjang extends CI_Controller {
 	{
 		$data['head'] 		= 'Ubah Referensi Jenjang Jabatan';
 		$data['record'] 	= $this->data->get_id($id);
-		$data['content'] 	= $this->folder.'form';
+		$data['content'] 	= $this->folder.'form_edit';
 		$data['style'] 		= $this->folder.'style';
         $data['js'] 		= $this->folder.'js';
         $data['jenis']  	= $this->data->get_jenis();
@@ -65,6 +65,7 @@ class Jenjang extends CI_Controller {
             $no++;
             $col = array();
             $col[] = '<input type="checkbox" class="data-check" value="'.$row->id.'">';
+            $col[] = $row->kategori_id == 1 ? 'STRUKTURAL' : 'FUNGSIONAL';
             $col[] = $row->jenis;
             $col[] = $row->jenjang;
 			
@@ -93,7 +94,8 @@ class Jenjang extends CI_Controller {
 			foreach($jenjang AS $key => $val){
 				if($_POST['jenjang'][$key] != ''){
 					$result[] = array(
-					 "jenis_id"  => $this->input->post('jenis_id'),
+                     "jenis_id"  => $this->input->post('jenis_id'),
+                     "kategori_id"  => $this->input->post('kategori_id'),
 					 "jenjang"  => $_POST['jenjang'][$key]
 					);
 				}
@@ -107,7 +109,8 @@ class Jenjang extends CI_Controller {
     public function ajax_update($id)
     {
         $data = array(
-                'eselon_id' => $this->input->post('eselon_id'),
+                'kategori_id' => $this->input->post('kategori_id'),
+                'jenis_id' => $this->input->post('jenis_id'),
                 'jenjang' => $this->input->post('jenjang')
             );
 		
@@ -156,5 +159,18 @@ class Jenjang extends CI_Controller {
         }
         echo json_encode($data);
         return $this->form_validation->run();
+    }
+    
+    public function get_jenis(){
+		//echo 'hallo';
+        $record = $this->data->get_id($this->uri->segment(4));
+        $kategori = $this->input->post('kategori_id');
+		$jenis = $this->data->get_jenis($kategori);
+        if(!empty($jenis)){
+           $selected = set_value('jenis_id', $record ? $record->jenis_id : '');
+            echo form_dropdown('jenis_id', $jenis, $selected, "class='form-control select2' name='jenis_id' id='jenis_id'");
+        }else{
+            echo form_dropdown('jenis_id', array(''=>'Pilih Jenis Jabatan'), '', "class='form-control select2' name='jenis_id' id='jenis_id'");
+        }
     }
 }

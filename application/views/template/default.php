@@ -49,7 +49,7 @@
                 <li><a href="<?= site_url('data/registrasi#'); ?>"><i class="fa fa-file-text-o"></i> Data Permohonan Diklat</a></li>
               </ul>
             </li>
-            <li><a href="<?= site_url('#'); ?>"><i class="fa fa-file-text"></i> Pendaftaran Diklat</a></li>
+            <li><a href="<?= site_url('daftar'); ?>"><i class="fa fa-file-text"></i> Registrasi Diklat</a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-database"></i> Data Master <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">

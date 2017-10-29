@@ -1,21 +1,21 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Daftar extends CI_Controller {
+class Struktural extends CI_Controller {
 
 	/**
 	 * code by rifqie rusyadi
 	 * email rifqie.rusyadi@gmail.com
 	 */
 	
-	public $folder = 'daftar/daftar/';
+	public $folder = 'struktural/struktural/';
 	
 	public function __construct()
 	{
 		parent::__construct();
 		$this->load->helper('help_helper');
 		$this->load->helper('my_helper');
-		$this->load->model('daftar_m', 'data');
+		$this->load->model('struktural_m', 'data');
 		signin();
 		//group(array('1'));
 	}
@@ -24,19 +24,20 @@ class Daftar extends CI_Controller {
 	public function index()
 	{
 		ini_set('memory_limit', '-1');
-		$data['head'] 		= 'Registrasi Diklat';
-		$data['record'] 	= $this->data->get_all();
-		$data['content'] 	= $this->folder.'default';
-		$data['style'] 		= $this->folder.'style';
-		$data['js'] 		= $this->folder.'js';
-		$data['id']			= $this->session->userdata('userID');
+		// $data['head'] 		= 'Registrasi Diklat Struktural';
+		// $data['record'] 	= $this->data->get_all();
+		// $data['content'] 	= $this->folder.'default';
+		// $data['style'] 		= $this->folder.'style';
+		// $data['js'] 		= $this->folder.'js';
+		// $data['id']			= $this->session->userdata('userID');
 
-		$this->load->view('template/default', $data);
+		// $this->load->view('template/default', $data);
+		redirect('struktural/created');
 	}
 	
 	public function created()
 	{
-		$data['head'] 		= 'Tambah Registrasi Diklat';
+		$data['head'] 		= 'Tambah Registrasi Diklat Struktural';
 		$data['record'] 	= $this->data->get_new();
 		$data['content'] 	= $this->folder.'form';
 		$data['style'] 		= $this->folder.'style';
@@ -49,7 +50,7 @@ class Daftar extends CI_Controller {
 	
 	public function updated($id)
 	{
-		$data['head'] 		= 'Ubah Registrasi Diklat';
+		$data['head'] 		= 'Ubah Registrasi Diklat Struktural';
 		$data['record'] 	= $this->data->get_id($id);
 		$data['content'] 	= $this->folder.'form_edit';
 		$data['style'] 		= $this->folder.'style';
@@ -108,7 +109,7 @@ class Daftar extends CI_Controller {
         
         if($this->validation()){
             $insert = $this->data->insert($data);
-			helper_log("add", "Menambah Registrasi Diklat");
+			helper_log("add", "Menambah Registrasi Diklat Struktural");
         }
     }
     
@@ -125,14 +126,14 @@ class Daftar extends CI_Controller {
 		
         if($this->validation($id)){
             $this->data->update($data, $id);
-			helper_log("edit", "Merubah Registrasi Diklat");
+			helper_log("edit", "Merubah Registrasi Diklat Struktural");
         }
     }
     
     public function ajax_delete($id)
     {
         $this->data->delete($id);
-		helper_log("trash", "Menghapus Registrasi Diklat");
+		helper_log("trash", "Menghapus Registrasi Diklat Struktural");
         echo json_encode(array("status" => TRUE));
     }
     
@@ -141,7 +142,7 @@ class Daftar extends CI_Controller {
         $list_id = $this->input->post('id');
         foreach ($list_id as $id) {
             $this->data->delete($id);
-			helper_log("trash", "Menghapus Registrasi Diklat");
+			helper_log("trash", "Menghapus Registrasi Diklat Struktural");
         }
         echo json_encode(array("status" => TRUE));
     }
@@ -155,7 +156,7 @@ class Daftar extends CI_Controller {
 			$this->form_validation->set_rules("password", "Password", "trim|required|min_length[6]|max_length[18]");
 			$this->form_validation->set_rules("repassword", "Ulangi Password", "trim|required|matches[password]");
 		}else{
-			//$this->form_validation->set_rules("daftarname", "Username", "trim|required");
+			//$this->form_validation->set_rules("strukturalname", "Username", "trim|required");
 		}
         
 		$this->form_validation->set_rules("fullname", "Nama Lengkap", "trim|required");

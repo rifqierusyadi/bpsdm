@@ -66,6 +66,24 @@ table = $('#tableIDX').DataTable({
     });
 });
 
+$("#kategori_id").change(function(){
+    var kategori = $("#kategori_id").val();
+	if(kategori){
+		$.ajax({
+				type: "POST",
+				async: false,
+				url : "<?php echo site_url('referensi/diklat/get_jenis')?>",
+				data: {
+				   'kategori_id': kategori,
+				   '<?php echo $this->security->get_csrf_token_name(); ?>' : '<?php echo $this->security->get_csrf_hash(); ?>'
+				},
+				success: function(msg){
+					$('#jenis_id').html(msg);
+				}
+		});
+	}
+});
+
 $("#jenis_id").change(function(){
     var jenis_id = $("#jenis_id").val();
     if(jenis_id){
@@ -84,13 +102,31 @@ $("#jenis_id").change(function(){
     }
 });
 
+$("#kategori_idx").ready(function(){
+    var kategori = $("#kategori_idx").val();
+	if(kategori){
+		$.ajax({
+				type: "POST",
+				async: false,
+				url : "<?php echo site_url('referensi/diklat/get_jenis/'.$this->uri->segment(4)); ?>",
+				data: {
+				   'kategori_id': kategori,
+				   '<?php echo $this->security->get_csrf_token_name(); ?>' : '<?php echo $this->security->get_csrf_hash(); ?>'
+				},
+				success: function(msg){
+					$('#jenis_id').html(msg);
+				}
+		});
+	}
+});
+
 $("#jenis_idx").ready(function(){
     var jenis_idx = $("#jenis_idx").val();
     if(jenis_idx){
         $.ajax({
             type: "POST",
             async: false,
-            url : "<?php echo site_url('referensi/diklat/get_jenjang/'.$this->uri->segment(4))?>",
+            url : "<?php echo site_url('referensi/diklat/get_jenjang/'.$this->uri->segment(4)); ?>",
             data: {
             'jenis_id': jenis_idx,
             '<?php echo $this->security->get_csrf_token_name(); ?>' : '<?php echo $this->security->get_csrf_hash(); ?>'

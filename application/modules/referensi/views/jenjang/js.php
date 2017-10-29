@@ -66,6 +66,42 @@ table = $('#tableIDX').DataTable({
     });
 });
 
+$("#kategori_id").change(function(){
+    var kategori = $("#kategori_id").val();
+	if(kategori){
+		$.ajax({
+				type: "POST",
+				async: false,
+				url : "<?php echo site_url('referensi/jenjang/get_jenis')?>",
+				data: {
+				   'kategori_id': kategori,
+				   '<?php echo $this->security->get_csrf_token_name(); ?>' : '<?php echo $this->security->get_csrf_hash(); ?>'
+				},
+				success: function(msg){
+					$('#jenis_id').html(msg);
+				}
+		});
+	}
+});
+
+$("#kategori_idx").ready(function(){
+    var kategori = $("#kategori_idx").val();
+	if(kategori){
+		$.ajax({
+				type: "POST",
+				async: false,
+				url : "<?php echo site_url('referensi/jenjang/get_jenis/'.$this->uri->segment(4)); ?>",
+				data: {
+				   'kategori_id': kategori,
+				   '<?php echo $this->security->get_csrf_token_name(); ?>' : '<?php echo $this->security->get_csrf_hash(); ?>'
+				},
+				success: function(msg){
+					$('#jenis_id').html(msg);
+				}
+		});
+	}
+});
+
 //function add button
 $(function(){
 	var maxField = 20; //Input fields increment limitation

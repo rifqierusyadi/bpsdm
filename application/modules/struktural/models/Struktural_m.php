@@ -1,17 +1,17 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Diklat_m extends MY_Model
+class Struktural_m extends MY_Model
 {
-	public $table = 'ref_diklat'; // you MUST mention the table name
+	public $table = 'identitas'; // you MUST mention the table name
 	public $primary_key = 'id'; // you MUST mention the primary key
 	public $fillable = array(); // If you want, you can set an array with the fields that can be filled by insert/update
 	public $protected = array(); // ...Or you can set an array with the fields that cannot be filled by insert/update
 	
 	//ajax datatable
-    public $column_order = array('a.id','b.jenis','a.jenjang',null); //set kolom field database pada datatable secara berurutan
-    public $column_search = array('a.jenjang','b.jenis'); //set kolom field database pada datatable untuk pencarian
-    public $order = array('a.id' => 'asc'); //order baku 
+    public $column_order = array(null); //set kolom field database pada datatable secara berurutan
+    public $column_search = array(); //set kolom field database pada datatable untuk pencarian
+    public $order = array('id' => 'asc'); //order baku 
 	
 	public function __construct()
 	{
@@ -24,21 +24,26 @@ class Diklat_m extends MY_Model
     {
         $record = new stdClass();
         $record->id = '';
-        $record->kategori_id = '';
-        $record->jenis_id = '';
-        $record->jenjang_id = '';
-        $record->diklat = '';
+		$record->nip = '';
+		//$record->username = '';
+		$record->password = '';
+		$record->repassword = '';
+		$record->fullname = '';
+		$record->email = '';
+		$record->telpon = '';
+		$record->pengelola_id = '';
+		$record->level = '';
+		$record->active = '';
         return $record;
     }
 	
 	//urusan lawan datatable
     private function _get_datatables_query()
     {
-        $this->db->select('a.id, a.jenis_id, a.jenjang_id, a.diklat, a.kategori_id, b.jenis, c.jenjang');
-        $this->db->from('ref_diklat a');
-        $this->db->join('ref_jenis b','a.jenis_id = b.id','LEFT');
-        $this->db->join('ref_jenjang c','a.jenjang_id = c.id','LEFT');
-        //$this->db->from($this->table);
+        $this->db->select('a.*, b.pengelola');
+		$this->db->from('users a');
+		$this->db->join('ref_pengelola b','a.pengelola_id = b.kode','LEFT');
+		//$this->db->from($this->table);
         $i = 0;
         foreach ($this->column_search as $item) // loop column 
         {
@@ -85,96 +90,61 @@ class Diklat_m extends MY_Model
     }
     
     //urusan lawan ambil data
-    public function get_datatables()
+    function get_datatables()
     {
         $this->_get_datatables_query();
         if($_POST['length'] != -1)
         $this->db->where('a.deleted_at', NULL);
+        $this->db->where('level', 4);
         $this->db->limit($_POST['length'], $_POST['start']);
         $query = $this->db->get();
         return $query->result();
     }
 	
-	public function get_id($id=null)
+	function get_id($id=null)
     {
         $this->db->where('id', $id);
 		$this->db->where('deleted_at', NULL);
         $query = $this->db->get($this->table);
-        if($query->num_rows() > 0){
-            return $query->row();
-        }else{
-            return FALSE;
-        }
-        
+        return $query->row();
     }
-
-    public function hapus($id=null)
-    {
-        $this->db->where('diklat_id', $id);
-        $delete = $this->db->delete('ref_diklat_detail');
-        return $delete;
-    }
-
-    public function get_detail($id=null)
-    {
-        $this->db->where('diklat_id', $id);
-		$this->db->where('deleted_at', NULL);
-        $query = $this->db->get('ref_diklat_detail');
-        if($query->num_rows() > 0){
-            return $query->result();
-        }else{
-            return FALSE;
-        }
-        
-    }
-
-    // public function get_jenis($jenis=null)
-	// {
-	// 	$this->db->where('deleted_at',NULL);
-    //     $query = $this->db->order_by('jenis', 'ASC')->get('ref_jenis');
-    //     if($query->num_rows() > 0){
-    //     $dropdown[] = 'Pilih Jenis Jabatan';
-	// 	foreach ($query->result() as $row)
-	// 	{
-	// 		$dropdown[$row->id] = $row->jenis;
-	// 	}
-    //     }else{
-    //         $dropdown[] = 'Belum Ada Jenis Jabatan Tersedia';
-    //     }
-	// 	return $dropdown;
-    // }
-
-    public function get_jenis($kategori=null)
+	
+	public function get_group()
 	{
-        $this->db->where('deleted_at',NULL);
-        $this->db->where('kategori_id',$kategori);
-        $query = $this->db->order_by('jenis', 'ASC')->get('ref_jenis');
+        $query = $this->db->order_by('id', 'ASC')->get('groups');
         if($query->num_rows() > 0){
-        $dropdown[] = 'Pilih Jenis Jabatan';
+        $dropdown[''] = 'Pilih Group/Tingkatan Pengguna';
 		foreach ($query->result() as $row)
 		{
-			$dropdown[$row->id] = $row->jenis;
+			$dropdown[$row->id] = $row->name;
 		}
         }else{
-            $dropdown[] = 'Belum Ada Jenis Jabatan Tersedia';
+            $dropdown[''] = 'Belum Ada Group/Tingkatan Pengguna Tersedia'; 
         }
 		return $dropdown;
 	}
-    
-    public function get_jenjang_id($jenis=null)
+	
+	public function get_pengelola()
 	{
-        $this->db->where('deleted_at',NULL);
-        $this->db->where('jenis_id',$jenis);
-        $query = $this->db->order_by('jenjang', 'ASC')->get('ref_jenjang');
+		$this->db->where('deleted_at',NULL);
+        $query = $this->db->order_by('kode', 'ASC')->get('ref_pengelola');
         if($query->num_rows() > 0){
-        $dropdown[] = 'Pilih Jenjang Jabatan';
+        $dropdown['00000'] = 'Semua Pengelola/Urusan';
 		foreach ($query->result() as $row)
 		{
-			$dropdown[$row->id] = $row->jenjang;
+			$dropdown[$row->kode] = $row->kode.' - '.$row->pengelola;
 		}
         }else{
-            $dropdown[] = 'Belum Ada Jenjang Jabatan Tersedia';
+            $dropdown[''] = 'Belum Ada Pengelola/Urusan Tersedia';
         }
 		return $dropdown;
 	}
+	
+	
+	public function insert_data($data)
+	{
+		$this->db->insert($this->table, $data);
+		return $this->db->insert_id();
+	}
+
 }

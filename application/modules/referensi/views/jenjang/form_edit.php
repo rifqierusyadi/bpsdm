@@ -11,6 +11,8 @@
 			</div>
 			<form id="formID" role="form" action="" method="post">
 			<input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>" />
+			<input type="hidden" name="kategori_idx" id="kategori_idx" value="<?= set_value('kategori_idx', $record->kategori_id); ?>" />
+			
 			<!-- box-body -->
 			<div class="box-body">
 				
@@ -36,27 +38,14 @@
 						</div>
 					</div>
 					<div class="col-md-12">
-						<div class="field-wrapper">
-							<div class="child">
-							<div class="form-group <?php echo form_error('jenjang') ? 'has-error' : null; ?>">
-								<?php
-									echo form_label('Jenjang Jabatan','jenjang');
-								?>
-								<div class="input-group input-group">  
-								  <?php
-								  $data = array('class'=>'form-control','name'=>'jenjang[]','id'=>'jenjang','type'=>'text','value'=>set_value('jenjang[]'));
-								  echo form_input($data);
-								  ?>
-								  <div class="input-group-btn">
-									<button class="btn btn-info btn-flat add-button" type="button"><i class="fa fa-plus"></i></button>
-								  </div>
-								</div>
-								<?php
-								  echo form_error('jenjang') ? form_error('jenjang', '<p class="help-block">','</p>') : '';
-								?>
-							</div>
-							</div>
-						</div>
+					<div class="form-group <?php echo form_error('jenjang') ? 'has-error' : null; ?>">
+						<?php
+						echo form_label('Jenjang Jabatan','jenjang');
+						$data = array('class'=>'form-control','name'=>'jenjang','id'=>'jenjang','type'=>'text','value'=>set_value('jenjang', $record->jenjang));
+						echo form_input($data);
+						echo form_error('jenjang') ? form_error('jenjang', '<p class="help-block">','</p>') : '';
+						?>
+					</div>
 					</div>
 				</div>
 			</div>

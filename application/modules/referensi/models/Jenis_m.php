@@ -24,7 +24,7 @@ class Jenis_m extends MY_Model
     {
         $record = new stdClass();
         $record->id = '';
-        $record->jenis_id = '';
+        $record->kategori_id = '';
         $record->eselon_id = '';
 		$record->jenis = '';
         return $record;

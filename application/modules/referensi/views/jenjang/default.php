@@ -21,7 +21,8 @@
 							<thead>
 								<tr>
 									<th width="5px"><input type="checkbox" id="check-all"></th>
-									<th>Jenis Jabatan</th>
+									<th>Kategori Jabatan</th>
+									<th>Jabatan</th>
 									<th>Jenjang Jabatan</th>
 									<th width="30px">Aksi</th>
 								</tr>

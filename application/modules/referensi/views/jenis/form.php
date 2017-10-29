@@ -17,13 +17,13 @@
 				
 				<div class="row">
 				<div class="col-md-12">
-						<div class="form-group <?php echo form_error('jenis_id') ? 'has-error' : null; ?>">
+						<div class="form-group <?php echo form_error('kategori_id') ? 'has-error' : null; ?>">
 							<?php 
-							echo form_label('Jenis Jabatan','jenis_id');
-							$selected = set_value('jenis_id', $record->jenis_id);
-							$jenis = array('1'=>'Administrator','2'=>'Fungsional');
-							echo form_dropdown('jenis_id', $jenis, $selected, "class='form-control select2' name='jenis_id' id='jenis_id'");
-							echo form_error('jenis_id') ? form_error('jenis_id', '<p class="help-block">','</p>') : '';
+							echo form_label('Kategori Jabatan','kategori_id');
+							$selected = set_value('jenis_id', $record->kategori_id);
+							$kategori = array(''=>'Pilih Salah Satu', '1'=>'Struktural','2'=>'Fungsional');
+							echo form_dropdown('kategori_id', $kategori, $selected, "class='form-control select2' name='kategori_id' id='kategori_id'");
+							echo form_error('kategori_id') ? form_error('kategori_id', '<p class="help-block">','</p>') : '';
 							?>
 						</div>
 					</div>

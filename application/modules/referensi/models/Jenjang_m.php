@@ -24,7 +24,8 @@ class Jenjang_m extends MY_Model
     {
         $record = new stdClass();
         $record->id = '';
-		$record->jenis_id = '';
+        $record->kategori_id = '';
+        $record->jenis_id = '';
 		$record->jenjang = '';
         return $record;
     }
@@ -32,7 +33,7 @@ class Jenjang_m extends MY_Model
 	//urusan lawan datatable
     private function _get_datatables_query()
     {
-        $this->db->select('a.id, a.jenis_id, a.jenjang, b.jenis');
+        $this->db->select('a.id, a.jenis_id, a.jenjang, a.kategori_id, b.jenis,');
         $this->db->from('ref_jenjang a');
         $this->db->join('ref_jenis b','a.jenis_id = b.id','LEFT');
         //$this->db->from($this->table);
@@ -100,9 +101,10 @@ class Jenjang_m extends MY_Model
         return $query->row();
     }
 
-    public function get_jenis($jenis=null)
+    public function get_jenis($kategori=null)
 	{
-		$this->db->where('deleted_at',NULL);
+        $this->db->where('deleted_at',NULL);
+        $this->db->where('kategori_id',$kategori);
         $query = $this->db->order_by('jenis', 'ASC')->get('ref_jenis');
         if($query->num_rows() > 0){
         $dropdown[] = 'Pilih Jenis Jabatan';

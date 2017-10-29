@@ -30,13 +30,13 @@ if (! function_exists('gelar'))
 
 if (! function_exists('biodata'))
 {
-	function biodata($nip=null)
+	function biodata($id=null)
 	{
 		$CI =& get_instance();
-		$CI->db->where('nip', $nip);
+		$CI->db->where('user_id', $id);
 		$query = $CI->db->get('identitas');
         if($query->num_rows() > 0){
-			return $query->row();
+			return $query->row_array();
 		}else{
             return FALSE;
         }

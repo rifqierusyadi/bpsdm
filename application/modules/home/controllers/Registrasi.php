@@ -57,9 +57,19 @@ class Registrasi extends CI_Controller {
 				'active' => 1,
 				'verify' => $verify
 			);
-			$input = $this->data->insert($data);
+			$insert = $this->data->insert($data);
+			if($insert){
+				$data = array(
+					'nip' => $this->input->post('nip'),
+					'nama' => $this->input->post('fullname'),
+					'telpon' => $this->input->post('telpon'),
+					'pengelola_id' => $this->input->post('pengelola'),
+					'user_id' => $insert
+				);
+				$this->db->insert('identitas', $data);	
+			}
 			helper_log("add", "Menambah Pengaturan Pengguna");
-			if($input){
+			if($insert){
 				$this->session->set_flashdata('flashconfirm','Data Registrasi Berhasil!');
 				redirect('home/registrasi');
 			}else{

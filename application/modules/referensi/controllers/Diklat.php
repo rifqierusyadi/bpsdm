@@ -66,6 +66,7 @@ class Diklat extends CI_Controller {
             $no++;
             $col = array();
             $col[] = '<input type="checkbox" class="data-check" value="'.$row->id.'">';
+            $col[] = $row->kategori_id == 1 ? 'STRUKTURAL' : 'ADMINISTRATOR';
             $col[] = $row->jenis;
             $col[] = $row->jenjang;
             $col[] = $row->diklat;
@@ -90,6 +91,7 @@ class Diklat extends CI_Controller {
 	public function ajax_save()
     {
         $data = array(
+            'kategori_id' => $this->input->post('kategori_id'),
             'jenis_id' => $this->input->post('jenis_id'),
             'jenjang_id' => $this->input->post('jenjang_id'),
             'diklat' => $this->input->post('diklat')
@@ -115,6 +117,7 @@ class Diklat extends CI_Controller {
     public function ajax_update($id)
     {
         $data = array(
+            'kategori_id' => $this->input->post('kategori_id'),
             'jenis_id' => $this->input->post('jenis_id'),
             'jenjang_id' => $this->input->post('jenjang_id'),
             'diklat' => $this->input->post('diklat')
@@ -181,6 +184,19 @@ class Diklat extends CI_Controller {
         }
         echo json_encode($data);
         return $this->form_validation->run();
+    }
+
+    public function get_jenis(){
+		//echo 'hallo';
+        $record = $this->data->get_id($this->uri->segment(4));
+        $kategori = $this->input->post('kategori_id');
+		$jenis = $this->data->get_jenis($kategori);
+        if(!empty($jenis)){
+           $selected = set_value('jenis_id', $record ? $record->jenis_id : '');
+            echo form_dropdown('jenis_id', $jenis, $selected, "class='form-control select2' name='jenis_id' id='jenis_id'");
+        }else{
+            echo form_dropdown('jenis_id', array(''=>'Pilih Jenis Jabatan'), '', "class='form-control select2' name='jenis_id' id='jenis_id'");
+        }
     }
 
     public function get_jenjang(){

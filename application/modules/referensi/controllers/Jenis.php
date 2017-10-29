@@ -65,7 +65,7 @@ class Jenis extends CI_Controller {
             $no++;
             $col = array();
             $col[] = '<input type="checkbox" class="data-check" value="'.$row->id.'">';
-            $col[] = $row->jenis_id = 1 ?  'ADMINISTRATOR' : 'FUNGSIONAL';
+            $col[] = $row->kategori_id = 1 ?  'STRUKTURAL' : 'FUNGSIONAL';
             $col[] = $row->jenis;
             $col[] = eselon($row->eselon_id);
 			
@@ -89,7 +89,7 @@ class Jenis extends CI_Controller {
 	public function ajax_save()
     {
         $data = array(
-                'jenis_id' => $this->input->post('jenis_id'),
+                'kategori_id' => $this->input->post('kategori_id'),
                 'eselon_id' => $this->input->post('eselon_id'),
                 'jenis' => $this->input->post('jenis')
             );
@@ -103,7 +103,7 @@ class Jenis extends CI_Controller {
     public function ajax_update($id)
     {
         $data = array(
-            'jenis_id' => $this->input->post('jenis_id'),
+            'kategori_id' => $this->input->post('kategori_id'),
             'eselon_id' => $this->input->post('eselon_id'),
             'jenis' => $this->input->post('jenis')
         );
