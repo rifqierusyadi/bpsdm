@@ -5,7 +5,7 @@
 		  
         <div class="box box-primary">
         <div class="box-body box-profile">
-			  <a href="#" class="btn btn-warning btn-flat btn-sm"><i class="fa fa-user"></i> Perbaharui Data</a>
+			  <a href="<?= site_url('profil/updated/'.$id); ?>" class="btn btn-warning btn-flat btn-sm"><i class="fa fa-user"></i> Perbaharui Data</a>
 			  <a href="#" class="btn btn-info btn-flat btn-sm"><i class="fa fa-image"></i> Upload Photo&nbsp;&nbsp;&nbsp;&nbsp;</a>
 			  <br><br>
               <img class="profile-user-img img-responsive img-circle" src="<?= base_url('asset/dist/img/avatar5.png'); ?>" alt="User profile picture">
@@ -17,7 +17,8 @@
 			  <hr>
 			  <strong><i class="fa fa-tag margin-r-5"></i> PANGKAT</strong>
 				<p class="text-muted">
-				<?= biodata($id) ? biodata($id)['pangkat_id'] : '-'; ?>
+				<?= biodata($id) ? gol(biodata($id)['pangkat_id']) : '-'; ?><br>
+				<?= biodata($id) ? pkt(biodata($id)['pangkat_id']) : '-'; ?>
 				</p>
 			  <hr>
 			  <strong><i class="fa fa-bank margin-r-5"></i> JABATAN</strong>
@@ -27,7 +28,8 @@
 			  <hr>
 			  <strong><i class="fa fa-graduation-cap margin-r-5"></i> PENDIDIKAN</strong>
 				<p class="text-muted">
-				<?= biodata($id) ? biodata($id)['ktpu_id'] : '-'; ?>
+				<?= biodata($id) ? ktpu(biodata($id)['ktpu_id']) : '-'; ?><br>
+				<?= biodata($id) ? biodata($id)['jurusan'] : '-'; ?>
 				</p>
 			  <hr>
 			  <strong><i class="fa fa-map-marker margin-r-5"></i> KONTAK</strong>

@@ -102,39 +102,56 @@ class Profil_m extends MY_Model
 	
 	function get_id($id=null)
     {
-        $this->db->where('id', $id);
+        $this->db->where('user_id', $id);
 		$this->db->where('deleted_at', NULL);
         $query = $this->db->get($this->table);
         return $query->row();
     }
 	
-	public function get_group()
+	public function get_ktpu()
 	{
-        $query = $this->db->order_by('id', 'ASC')->get('groups');
+		$this->db->where('deleted_at',NULL);
+        $query = $this->db->order_by('kode', 'ASC')->get('ref_ktpu');
         if($query->num_rows() > 0){
-        $dropdown[''] = 'Pilih Group/Tingkatan Pengguna';
+        $dropdown[''] = 'Pilih Tingkat Pendidikan';
 		foreach ($query->result() as $row)
 		{
-			$dropdown[$row->id] = $row->name;
+			$dropdown[$row->kode] = $row->ktpu;
 		}
         }else{
-            $dropdown[''] = 'Belum Ada Group/Tingkatan Pengguna Tersedia'; 
+            $dropdown[''] = 'Belum Ada Tingkat Pendidikan Tersedia';
         }
 		return $dropdown;
 	}
 	
-	public function get_pengelola()
+	public function get_pangkat()
 	{
 		$this->db->where('deleted_at',NULL);
-        $query = $this->db->order_by('kode', 'ASC')->get('ref_pengelola');
+        $query = $this->db->order_by('kode', 'ASC')->get('ref_pangkat');
         if($query->num_rows() > 0){
-        $dropdown['00000'] = 'Semua Pengelola/Urusan';
+        $dropdown[''] = 'Pilih Golongan/Pangkat';
 		foreach ($query->result() as $row)
 		{
-			$dropdown[$row->kode] = $row->kode.' - '.$row->pengelola;
+			$dropdown[$row->kode] = $row->golongan.' - '.$row->pangkat;
 		}
         }else{
-            $dropdown[''] = 'Belum Ada Pengelola/Urusan Tersedia';
+            $dropdown[''] = 'Belum Ada Golongan/Pangkat Tersedia';
+        }
+		return $dropdown;
+    }
+    
+    public function get_eselon()
+	{
+		$this->db->where('deleted_at',NULL);
+        $query = $this->db->order_by('kode', 'ASC')->get('ref_eselon');
+        if($query->num_rows() > 0){
+        $dropdown[''] = 'Pilih Tingkat Jabatan';
+		foreach ($query->result() as $row)
+		{
+			$dropdown[$row->kode] = $row->eselon.' - '.$row->jabatan;
+		}
+        }else{
+            $dropdown[''] = 'Belum Ada Tingkat Jabatan Tersedia';
         }
 		return $dropdown;
 	}
