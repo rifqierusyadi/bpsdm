@@ -84,6 +84,24 @@ $("#jenis_id").change(function(){
     }
 });
 
+$("#jenis_idx").ready(function(){
+    var jenis_idx = $("#jenis_idx").val();
+    if(jenis_idx){
+        $.ajax({
+            type: "POST",
+            async: false,
+            url : "<?php echo site_url('referensi/diklat/get_jenjang/'.$this->uri->segment(4))?>",
+            data: {
+            'jenis_id': jenis_idx,
+            '<?php echo $this->security->get_csrf_token_name(); ?>' : '<?php echo $this->security->get_csrf_hash(); ?>'
+            },
+            success: function(msg){
+            $('#jenjang_id').html(msg);
+            }
+        });
+    }
+});
+
 //function add button
 $(function(){
 	var maxField = 20; //Input fields increment limitation

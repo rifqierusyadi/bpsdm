@@ -44,8 +44,25 @@ table = $('#tableIDX').DataTable({
             { 
                 targets:[ -1 ],orderable: false,responsivePriority: 2
             },
+            { 
+                targets:[ 1 ], visible: false, class:'never'
+            },
         ],
-		"order": [[ 1, 'asc' ]]
+		"order": [[ 1, 'asc' ]],
+        drawCallback: function ( settings ) {
+            var api = this.api();
+            var rows = api.rows( {page:'current'} ).nodes();
+            var last=null;
+            api.column(1, {page:'current'} ).data().each( function ( group, i ) {
+            if ( last !== group ) {
+            $(rows).eq( i ).before(
+            '<tr class="bg-gray color-palette disabled"><td colspan="4"><b>'+group+'</b></td></tr>'
+            );
+
+            last = group;
+            }
+            });
+        }
     });
 });
 </script>

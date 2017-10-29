@@ -26,7 +26,7 @@
 	
 </head>
 <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
-<body class="hold-transition skin-purple layout-top-nav">
+<body class="hold-transition skin-blue layout-top-nav">
 <div class="wrapper">
   <header class="main-header">
     <nav class="navbar navbar-static-top">

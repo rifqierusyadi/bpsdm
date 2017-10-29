@@ -16,10 +16,21 @@
 			<div class="box-body">
 				
 				<div class="row">
+				<div class="col-md-12">
+						<div class="form-group <?php echo form_error('jenis_id') ? 'has-error' : null; ?>">
+							<?php 
+							echo form_label('Jenis Jabatan','jenis_id');
+							$selected = set_value('jenis_id', $record->jenis_id);
+							$jenis = array('1'=>'Administrator','2'=>'Fungsional');
+							echo form_dropdown('jenis_id', $jenis, $selected, "class='form-control select2' name='jenis_id' id='jenis_id'");
+							echo form_error('jenis_id') ? form_error('jenis_id', '<p class="help-block">','</p>') : '';
+							?>
+						</div>
+					</div>
 					<div class="col-md-12">
 						<div class="form-group <?php echo form_error('jenis') ? 'has-error' : null; ?>">
 							<?php
-							echo form_label('Jenis Jabatan','jenis');
+							echo form_label('Jabatan','jenis');
 							$data = array('class'=>'form-control','name'=>'jenis','id'=>'jenis','type'=>'text','value'=>set_value('jenis', $record->jenis));
 							echo form_input($data);
 							echo form_error('jenis') ? form_error('jenis', '<p class="help-block">','</p>') : '';

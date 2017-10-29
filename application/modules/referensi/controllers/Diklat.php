@@ -47,10 +47,11 @@ class Diklat extends CI_Controller {
 	{
 		$data['head'] 		= 'Ubah Referensi Jenis Diklat';
 		$data['record'] 	= $this->data->get_id($id);
-		$data['content'] 	= $this->folder.'form';
+		$data['content'] 	= $this->folder.'form_edit';
 		$data['style'] 		= $this->folder.'style';
         $data['js'] 		= $this->folder.'js';
         $data['jenis']  	= $this->data->get_jenis();
+        $data['detail']  	= $this->data->get_detail($id);
 		
 		$this->load->view('template/default', $data);
 	}
@@ -66,6 +67,7 @@ class Diklat extends CI_Controller {
             $col = array();
             $col[] = '<input type="checkbox" class="data-check" value="'.$row->id.'">';
             $col[] = $row->jenis;
+            $col[] = $row->jenjang;
             $col[] = $row->diklat;
 			
             //add html for action
@@ -113,12 +115,25 @@ class Diklat extends CI_Controller {
     public function ajax_update($id)
     {
         $data = array(
-                'eselon_id' => $this->input->post('eselon_id'),
-                'diklat' => $this->input->post('diklat')
-            );
-		
+            'jenis_id' => $this->input->post('jenis_id'),
+            'jenjang_id' => $this->input->post('jenjang_id'),
+            'diklat' => $this->input->post('diklat')
+        );
+
         if($this->validation($id)){
-            $this->data->update($data, $id);
+            $update = $this->data->update($data, $id);
+            $this->data->hapus($id);
+            $syarat = $this->input->post('syarat');
+			$result = array();
+			foreach($syarat AS $key => $val){
+				if($_POST['syarat'][$key] != ''){
+					$result[] = array(
+					 "diklat_id"  => $id,
+					 "syarat"  => $_POST['syarat'][$key]
+					);
+				}
+			}
+			$this->db->insert_batch('ref_diklat_detail', $result);
 			helper_log("edit", "Merubah Referensi Jenis Diklat");
         }
     }
@@ -174,8 +189,7 @@ class Diklat extends CI_Controller {
         $jenis = $this->input->post('jenis_id');
 		$jenjang = $this->data->get_jenjang_id($jenis);
         if(!empty($jenjang)){
-            //$selected = (set_value('unker')) ? set_value('unker') : '';
-			$selected = set_value('jenjang_id', $record->jenjang_id);
+           $selected = set_value('jenjang_id', $record ? $record->jenjang_id : '');
             echo form_dropdown('jenjang_id', $jenjang, $selected, "class='form-control select2' name='jenjang_id' id='jenjang_id'");
         }else{
             echo form_dropdown('jenjang_id', array(''=>'Pilih Jenjang Jabatan'), '', "class='form-control select2' name='jenjang_id' id='jenjang_id'");

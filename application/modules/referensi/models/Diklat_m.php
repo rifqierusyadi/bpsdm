@@ -33,9 +33,10 @@ class Diklat_m extends MY_Model
 	//urusan lawan datatable
     private function _get_datatables_query()
     {
-        $this->db->select('a.id, a.jenis_id, a.jenjang, b.jenis');
-        $this->db->from('ref_jenjang a');
+        $this->db->select('a.id, a.jenis_id, a.jenjang_id, a.diklat, b.jenis, c.jenjang');
+        $this->db->from('ref_diklat a');
         $this->db->join('ref_jenis b','a.jenis_id = b.id','LEFT');
+        $this->db->join('ref_jenjang c','a.jenjang_id = c.id','LEFT');
         //$this->db->from($this->table);
         $i = 0;
         foreach ($this->column_search as $item) // loop column 
@@ -83,7 +84,7 @@ class Diklat_m extends MY_Model
     }
     
     //urusan lawan ambil data
-    function get_datatables()
+    public function get_datatables()
     {
         $this->_get_datatables_query();
         if($_POST['length'] != -1)
@@ -93,12 +94,37 @@ class Diklat_m extends MY_Model
         return $query->result();
     }
 	
-	function get_id($id=null)
+	public function get_id($id=null)
     {
         $this->db->where('id', $id);
 		$this->db->where('deleted_at', NULL);
         $query = $this->db->get($this->table);
-        return $query->row();
+        if($query->num_rows() > 0){
+            return $query->row();
+        }else{
+            return FALSE;
+        }
+        
+    }
+
+    public function hapus($id=null)
+    {
+        $this->db->where('diklat_id', $id);
+        $delete = $this->db->delete('ref_diklat_detail');
+        return $delete;
+    }
+
+    public function get_detail($id=null)
+    {
+        $this->db->where('diklat_id', $id);
+		$this->db->where('deleted_at', NULL);
+        $query = $this->db->get('ref_diklat_detail');
+        if($query->num_rows() > 0){
+            return $query->result();
+        }else{
+            return FALSE;
+        }
+        
     }
 
     public function get_jenis($jenis=null)
