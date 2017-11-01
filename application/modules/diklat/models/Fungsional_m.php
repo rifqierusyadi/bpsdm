@@ -201,4 +201,20 @@ class Fungsional_m extends MY_Model
         }
     }
 
+    public function get_kode() {
+		$query = $this->db->query("SELECT MAX(RIGHT(kode,5)) AS kode FROM bpsdm_diklat");
+		$kode = "";
+	  
+		if($query->num_rows() > 0){ 
+			  foreach($query->result() as $k){
+				  $tmp = ((int)$k->kode)+1;
+				  $kode = sprintf("%05s", $tmp);
+			  }
+		 }else{
+		  $kode = "00001";
+		}
+		$karakter = "F"; 
+		return $karakter.$kode;
+    }
+
 }

@@ -171,10 +171,10 @@
 															<th>AKSI</th>
 														</tr>
 													</thead>
-													<?php if(struktural($id)){ ?>
+													<?php if(fungsional($id)){ ?>
 													<tbody>
 														<?php $no = 1; ?>
-														<?php foreach (struktural($id) as $row) : ?>
+														<?php foreach (fungsional($id) as $row) : ?>
 														<tr>
 															<td><?= $no; ?></td>
 															<td><?= $row->kode; ?></td>

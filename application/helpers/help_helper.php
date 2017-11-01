@@ -166,6 +166,23 @@ if (! function_exists('struktural'))
 	}
 }
 
+if (! function_exists('fungsional'))
+{
+	function fungsional($id=null)
+	{
+		$CI =& get_instance();
+		$CI->db->where('user_id', $id);
+		$CI->db->where('kategori_id', 2);
+		$CI->db->where('deleted_at', null);
+		$query = $CI->db->get('diklat');
+        if($query->num_rows() > 0){
+			return $query->result();
+		}else{
+            return FALSE;
+        }
+	}
+}
+
 if (! function_exists('jenis'))
 {
 	function jenis($id=null)

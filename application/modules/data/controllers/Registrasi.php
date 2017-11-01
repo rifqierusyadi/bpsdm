@@ -15,7 +15,7 @@ class Registrasi extends CI_Controller {
 		parent::__construct();
 		$this->load->model('registrasi_m', 'data');
 		signin();
-		group(array('1'));
+		group(array('1','2','3'));
 	}
 	
 	//halaman index

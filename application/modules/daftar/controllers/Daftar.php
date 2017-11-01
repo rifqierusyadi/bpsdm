@@ -17,7 +17,7 @@ class Daftar extends CI_Controller {
 		$this->load->helper('my_helper');
 		$this->load->model('daftar_m', 'data');
 		signin();
-		//group(array('1'));
+		group(array('4'));
 	}
 	
 	//halaman index
