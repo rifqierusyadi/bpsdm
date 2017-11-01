@@ -72,7 +72,7 @@
               </ul>
             </li>
 						<li><a href="<?= site_url('setting/informasi'); ?>"><i class="fa fa-feed"></i> Informasi</a></li>
-						<li><a href="#"><i class="fa fa-envelope-o"></i> F.A.Q</a></li>
+						<li><a href="#"><i class="fa fa-envelope-o"></i> Tanya Jawab</a></li>
 						<li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gears"></i> Pengaturan <span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">

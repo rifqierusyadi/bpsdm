@@ -2,7 +2,6 @@
 <div class="row">
 	<div class="col-md-3">
 		<!-- Profile Image -->
-		  
         <div class="box box-primary">
         <div class="box-body box-profile">
 			  <a href="<?= site_url('profil/updated/'.$id); ?>" class="btn btn-warning btn-flat btn-sm"><i class="fa fa-user"></i> Perbaharui Data</a>
@@ -50,7 +49,7 @@
 		</div>
 		<?php endif; ?>
 		<?php if($this->session->flashdata('flasherror')): ?>
-		<div class="alert alert-info alert-dismissable">
+		<div class="alert alert-warning alert-dismissable">
 		  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 		  <i class="icon fa fa-info"></i> Perhatian! <?php echo $this->session->flashdata('flasherror'); ?>.
 		</div>
@@ -70,7 +69,7 @@
 										<div class="icon">
 											<i class="ion ion-ios-book-outline"></i>
 										</div>
-									<a href="<?= site_url('struktural'); ?>" class="small-box-footer">Daftar Diklat <i class="fa fa-arrow-circle-right"></i></a>
+									<a href="<?= site_url('diklat/struktural/created'); ?>" class="small-box-footer">Daftar Diklat <i class="fa fa-arrow-circle-right"></i></a>
 									</div>
 								</div>
 
@@ -83,7 +82,7 @@
 										<div class="icon">
 											<i class="ion ion-ios-book-outline"></i>
 										</div>
-									<a href="<?= site_url('fungsional'); ?>" class="small-box-footer">Daftar Diklat <i class="fa fa-arrow-circle-right"></i></a>
+									<a href="<?= site_url('diklat/fungsional/created'); ?>" class="small-box-footer">Daftar Diklat <i class="fa fa-arrow-circle-right"></i></a>
 									</div>
 								</div>
 
@@ -104,5 +103,99 @@
 		
 		<!-- Custom Tabs -->
         <!-- nav-tabs-custom -->
+				<div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+        	    <li class="active"><a href="#struktural" data-toggle="tab"><i class="fa fa-book"></i> DIKLAT STRUKTURAL</a></li>
+        	    <li><a href="#fungsional" data-toggle="tab"><i class="fa fa-book"></i> DIKLAT FUNGSIONAL</a></li>
+			  			<li><a href="#teknis" data-toggle="tab"><i class="fa fa-book"></i> DIKLAT TEKNIS</a></li>
+          	</ul>
+
+						<div class="tab-content">
+								<div class="tab-pane active" id="struktural">
+										<div class="row">
+											<div class="col-md-12">
+												<table class="table table-bordered table-striped" id="tableIDX">
+													<thead>
+														<tr>
+															<th width="5px">NO</th>
+															<th>KODE</th>
+															<th>JENIS</th>
+															<th>JENJANG</th>
+															<th>DIKLAT</th>
+															<th>PERIODE</th>
+															<th>PENYELENGGARA</th>
+															<th>KETERANGAN</th>
+															<th>STATUS</th>
+															<th>AKSI</th>
+														</tr>
+													</thead>
+													<?php if(struktural($id)){ ?>
+													<tbody>
+														<?php $no = 1; ?>
+														<?php foreach (struktural($id) as $row) : ?>
+														<tr>
+															<td><?= $no; ?></td>
+															<td><?= $row->kode; ?></td>
+															<td><?= jenis($row->jenis_id); ?></td>
+															<td><?= jenjang($row->jenjang_id); ?></td>
+															<td><?= diklat($row->diklat_id); ?></td>
+															<td><?= $row->periode; ?></td>
+															<td><?= $row->penyelenggara; ?></td>
+															<td><?= $row->keterangan; ?></td>
+															<td class="text-center"><?= $row->status ? '<button class="btn btn-xs btn-flat btn-success"><i class="fa fa-check-square"></i> </button>' : '<button class="btn btn-xs btn-flat btn-warning"><i class="fa fa-minus-square"></i> </button>'; ?></td>
+															<td class="text-center"><?= $row->status ? '<a class="btn btn-xs btn-flat btn-success"><i class="fa fa-check-square"></i> </a>' : '<a class="btn btn-xs btn-flat btn-danger" href="'.site_url('diklat/struktural/deleted/'.$row->id).'"><i class="fa fa-trash"></i> </a>'; ?></td>
+														</tr>
+														<?php ++$no; ?>
+														<?php endforeach; ?>
+													</tbody>
+													<?php }  ?>
+													</table>
+											</div>
+										</div>
+								</div>
+								<div class="tab-pane" id="fungsional">
+										<div class="row">
+											<div class="col-md-12">
+												<table class="table table-bordered table-striped" id="tableIDX">
+													<thead>
+														<tr>
+															<th width="5px">NO</th>
+															<th>KODE</th>
+															<th>JENIS</th>
+															<th>JENJANG</th>
+															<th>DIKLAT</th>
+															<th>PERIODE</th>
+															<th>PENYELENGGARA</th>
+															<th>KETERANGAN</th>
+															<th>STATUS</th>
+															<th>AKSI</th>
+														</tr>
+													</thead>
+													<?php if(struktural($id)){ ?>
+													<tbody>
+														<?php $no = 1; ?>
+														<?php foreach (struktural($id) as $row) : ?>
+														<tr>
+															<td><?= $no; ?></td>
+															<td><?= $row->kode; ?></td>
+															<td><?= jenis($row->jenis_id); ?></td>
+															<td><?= jenjang($row->jenjang_id); ?></td>
+															<td><?= diklat($row->diklat_id); ?></td>
+															<td><?= $row->periode; ?></td>
+															<td><?= $row->penyelenggara; ?></td>
+															<td><?= $row->keterangan; ?></td>
+															<td class="text-center"><?= $row->status ? '<button class="btn btn-xs btn-flat btn-success"><i class="fa fa-check-square"></i> </button>' : '<button class="btn btn-xs btn-flat btn-warning"><i class="fa fa-minus-square"></i> </button>'; ?></td>
+															<td class="text-center"><?= $row->status ? '<a class="btn btn-xs btn-flat btn-success"><i class="fa fa-check-square"></i> </a>' : '<a class="btn btn-xs btn-flat btn-danger" href="'.site_url('diklat/struktural/deleted/'.$row->id).'"><i class="fa fa-trash"></i> </a>'; ?></td>
+														</tr>
+														<?php ++$no; ?>
+														<?php endforeach; ?>
+													</tbody>
+													<?php }  ?>
+													</table>
+											</div>
+										</div>
+								</div>
+						</div>
+					</div>
 	</div>
 </div>

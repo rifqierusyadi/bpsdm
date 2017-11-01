@@ -160,7 +160,7 @@
 						<div class="form-group <?php echo form_error('ktpu_id') ? 'has-error' : null; ?>">
 							<?php 
 							echo form_label('Tingkat Pendidikan Akhir','ktpu_id');
-							$selected = set_value('ktpu_id', $record->pangkat_id);
+							$selected = set_value('ktpu_id', $record->ktpu_id);
 							echo form_dropdown('ktpu_id', $ktpu, $selected, "class='form-control select2' name='ktpu_id' id='ktpu_id'");
 							echo form_error('ktpu_id') ? form_error('ktpu_id', '<p class="help-block">','</p>') : '';
 							?>

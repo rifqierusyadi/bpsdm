@@ -296,11 +296,183 @@ function back()
     }
 }
 
-function savebackout()
+// function savebackout()
+// {
+//     var location = window.location.href;
+//     var process = location.substring(location.lastIndexOf('/')+1);
+//     var id = $("#nip").val();
+    
+//     if(process == 'created'){
+// 		var current = window.location.toString();
+// 		var url = current.replace(/created/, 'ajax_save');
+//     }else{
+// 		var current = window.location.toString();
+// 		var url = current.replace(/updated/, 'ajax_update');
+//     }
+    
+//     $.ajax({
+//         url : url,
+//         type: "POST",
+//         data: $('#formID').serialize(),
+//         dataType: "JSON",
+//         success: function(data)
+//         {
+// 		if(data.success == true){
+// 			  $('#message').append('<div class="alert alert-success">' +
+//                     '<span class="glyphicon glyphicon-ok"></span>' +
+//                     ' Data berhasil disimpan.' +
+//                     '</div>');
+			  
+//                     $('.form-group').removeClass('has-error')
+//                                     .removeClass('has-success');
+//                     $('.text-danger').remove();
+//                     $('#formID')[0].reset();
+                    
+//                     // tutup pesan
+//                     $('.alert-success').delay(250).show(10, function() {
+//                         $(this).delay(1000).hide(10, function() {
+//                         $(this).remove();
+//                         });
+//                     })
+                    
+// 				var location = window.location.href;
+// 				var n = location.search("created");
+				
+// 				if(n > 0){
+// 					var base_url = window.location.origin;
+// 					var current = window.location.toString();
+// 					var lastIndex = location.substring(location.lastIndexOf('/')+1);
+// 					var url = current.replace(lastIndex, '');
+// 					var redirect = base_url+'/simpeg3/data/identitas/'+id;
+// 					//var redirect = base_url+'/simpeg3/data/identitas/'+lastIndex;
+// 					//var pathArray = window.location.pathname.split( '/' );
+// 					//alert(redirect);
+// 					window.location.href = redirect;
+// 					//reload_table();
+// 				}else{
+// 					var base_url = window.location.origin;
+// 					var current = window.location.toString();
+// 					var lastIndex = location.substring(location.lastIndexOf('/')+1);
+// 					var url = current.replace(lastIndex, '');
+// 					var redirect = base_url+'/simpeg3/data/identitas/'+id;
+					
+// 					window.location.href = redirect
+// 					//reload_table();
+// 				}
+//             }else{
+//                 $.each(data.messages, function(key, value) {
+//                     var element = $('#' + key);
+//                     element.closest('div.form-group')
+//                     .removeClass('has-error')
+//                     .addClass(value.length > 0 ? 'has-error' : 'has-success')
+//                     .find('.text-danger')
+//                     .remove();
+//                     element.after(value);
+//                 });
+//             }
+//         },
+//         error: function (jqXHR, textStatus, errorThrown)
+//         {
+//             alert('Ada kesalahan dalam proses penyimpanan/pembaharuan data.');
+//         }
+//     });
+// }
+
+// function backward()
+// {
+//     var location = window.location.href;
+//     var n = location.search("created");
+//     var id = $("#nip").val();
+//     if(n > 0){
+// 		var base_url = window.location.origin;
+// 		var current = window.location.toString();
+// 		var lastIndex = location.substring(location.lastIndexOf('/')+1);
+// 		var url = current.replace(lastIndex, '');
+// 		var redirect = base_url+'/simpeg3/data/identitas/'+id;
+// 		//var redirect = base_url+'/simpeg3/data/identitas/'+lastIndex;
+// 		//var pathArray = window.location.pathname.split( '/' );
+// 		//alert(redirect);
+// 		window.location.href = redirect;
+// 		//reload_table();
+//     }else{
+// 		var base_url = window.location.origin;
+// 		var current = window.location.toString();
+// 		var lastIndex = location.substring(location.lastIndexOf('/')+1);
+// 		var url = current.replace(lastIndex, '');
+// 		var redirect = base_url+'/simpeg3/data/identitas/'+id;
+		
+// 		window.location.href = redirect
+// 		//reload_table();
+//     }
+// }
+
+function savecheck()
 {
     var location = window.location.href;
     var process = location.substring(location.lastIndexOf('/')+1);
-    var id = $("#nip").val();
+    var cek = $('input:checkbox:not(":checked")').length;
+
+    if(process == 'created'){
+		var current = window.location.toString();
+		var url = current.replace(/created/, 'ajax_save');
+    }else{
+		var current = window.location.toString();
+		var url = current.replace(/updated/, 'ajax_update');
+    }
+    
+    if(cek == 0){
+        $.ajax({
+            url : url,
+            type: "POST",
+            data: $('#formID').serialize(),
+            dataType: "JSON",
+            success: function(data)
+            {
+                if(data.success == true){
+                $('#message').append('<div class="alert alert-success">' +
+                        '<span class="glyphicon glyphicon-ok"></span>' +
+                        ' Data berhasil disimpan.' +
+                        '</div>');
+                
+                        $('.form-group').removeClass('has-error')
+                                        .removeClass('has-success');
+                        $('.text-danger').remove();
+                        $('#formID')[0].reset();
+                        
+                        // tutup pesan
+                        $('.alert-success').delay(250).show(10, function() {
+                            $(this).delay(1000).hide(10, function() {
+                            $(this).remove();
+                            });
+                        })
+                        reload_table();
+                }else{
+                    $.each(data.messages, function(key, value) {
+                        var element = $('#' + key);
+                        element.closest('div.form-group')
+                        .removeClass('has-error')
+                        .addClass(value.length > 0 ? 'has-error' : 'has-success')
+                        .find('.text-danger')
+                        .remove();
+                        element.after(value);
+                    });
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+                alert('Ada kesalahan dalam proses penyimpanan/pembaharuan data.');
+            }
+        });
+    }else{
+        alert('Semua Syarat Harus Di Dipenuhi Dengan Mencentang Semua Persyaratan');
+    }
+}
+
+function savecheckout()
+{
+    var location = window.location.href;
+    var process = location.substring(location.lastIndexOf('/')+1);
+    var cek = $('input:checkbox:not(":checked")').length;
     
     if(process == 'created'){
 		var current = window.location.toString();
@@ -310,99 +482,67 @@ function savebackout()
 		var url = current.replace(/updated/, 'ajax_update');
     }
     
-    $.ajax({
-        url : url,
-        type: "POST",
-        data: $('#formID').serialize(),
-        dataType: "JSON",
-        success: function(data)
-        {
-		if(data.success == true){
-			  $('#message').append('<div class="alert alert-success">' +
-                    '<span class="glyphicon glyphicon-ok"></span>' +
-                    ' Data berhasil disimpan.' +
-                    '</div>');
-			  
-                    $('.form-group').removeClass('has-error')
-                                    .removeClass('has-success');
-                    $('.text-danger').remove();
-                    $('#formID')[0].reset();
+    if(cek == 0){
+        $.ajax({
+            url : url,
+            type: "POST",
+            data: $('#formID').serialize(),
+            dataType: "JSON",
+            success: function(data)
+            {
+            if(data.success == true){
+                $('#message').append('<div class="alert alert-success">' +
+                        '<span class="glyphicon glyphicon-ok"></span>' +
+                        ' Data berhasil disimpan.' +
+                        '</div>');
+                
+                        $('.form-group').removeClass('has-error')
+                                        .removeClass('has-success');
+                        $('.text-danger').remove();
+                        $('#formID')[0].reset();
+                        
+                        // tutup pesan
+                        $('.alert-success').delay(250).show(10, function() {
+                            $(this).delay(1000).hide(10, function() {
+                            $(this).remove();
+                            });
+                        })
+                        
+                    var location = window.location.href;
+                    var n = location.search("created");
                     
-                    // tutup pesan
-                    $('.alert-success').delay(250).show(10, function() {
-                        $(this).delay(1000).hide(10, function() {
-                        $(this).remove();
-                        });
-                    })
-                    
-				var location = window.location.href;
-				var n = location.search("created");
-				
-				if(n > 0){
-					var base_url = window.location.origin;
-					var current = window.location.toString();
-					var lastIndex = location.substring(location.lastIndexOf('/')+1);
-					var url = current.replace(lastIndex, '');
-					var redirect = base_url+'/simpeg3/data/identitas/'+id;
-					//var redirect = base_url+'/simpeg3/data/identitas/'+lastIndex;
-					//var pathArray = window.location.pathname.split( '/' );
-					//alert(redirect);
-					window.location.href = redirect;
-					//reload_table();
-				}else{
-					var base_url = window.location.origin;
-					var current = window.location.toString();
-					var lastIndex = location.substring(location.lastIndexOf('/')+1);
-					var url = current.replace(lastIndex, '');
-					var redirect = base_url+'/simpeg3/data/identitas/'+id;
-					
-					window.location.href = redirect
-					//reload_table();
-				}
-            }else{
-                $.each(data.messages, function(key, value) {
-                    var element = $('#' + key);
-                    element.closest('div.form-group')
-                    .removeClass('has-error')
-                    .addClass(value.length > 0 ? 'has-error' : 'has-success')
-                    .find('.text-danger')
-                    .remove();
-                    element.after(value);
-                });
+                    if(n > 0){
+                        var current = window.location.toString();
+                        var lastIndex = location.substring(location.lastIndexOf('created')-1);
+                        var url = current.replace(lastIndex, '');
+                        window.location.href = url;
+                        reload_table();
+                    }else{
+                        var current = window.location.toString();
+                        var lastIndex = location.substring(location.lastIndexOf('updated')-1);
+                        var url = current.replace(lastIndex, '');
+                        window.location.href = url;
+                        reload_table();
+                    }
+                }else{
+                    $.each(data.messages, function(key, value) {
+                        var element = $('#' + key);
+                        element.closest('div.form-group')
+                        .removeClass('has-error')
+                        .addClass(value.length > 0 ? 'has-error' : 'has-success')
+                        .find('.text-danger')
+                        .remove();
+                        element.after(value);
+                    });
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+                alert('Ada kesalahan dalam proses penyimpanan/pembaharuan data.');
             }
-        },
-        error: function (jqXHR, textStatus, errorThrown)
-        {
-            alert('Ada kesalahan dalam proses penyimpanan/pembaharuan data.');
-        }
-    });
-}
-
-function backward()
-{
-    var location = window.location.href;
-    var n = location.search("created");
-    var id = $("#nip").val();
-    if(n > 0){
-		var base_url = window.location.origin;
-		var current = window.location.toString();
-		var lastIndex = location.substring(location.lastIndexOf('/')+1);
-		var url = current.replace(lastIndex, '');
-		var redirect = base_url+'/simpeg3/data/identitas/'+id;
-		//var redirect = base_url+'/simpeg3/data/identitas/'+lastIndex;
-		//var pathArray = window.location.pathname.split( '/' );
-		//alert(redirect);
-		window.location.href = redirect;
-		//reload_table();
+        });
     }else{
-		var base_url = window.location.origin;
-		var current = window.location.toString();
-		var lastIndex = location.substring(location.lastIndexOf('/')+1);
-		var url = current.replace(lastIndex, '');
-		var redirect = base_url+'/simpeg3/data/identitas/'+id;
-		
-		window.location.href = redirect
-		//reload_table();
+        alert('Semua Syarat Harus Di Dipenuhi Dengan Mencentang Semua Persyaratan');
     }
 }
 

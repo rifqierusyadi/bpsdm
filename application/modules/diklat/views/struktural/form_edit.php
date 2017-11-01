@@ -35,26 +35,6 @@
 						</div>
 					</div>
 					<div class="col-md-12">
-						<div class="form-group <?php echo form_error('password') ? 'has-error' : null; ?>">
-							<?php
-							echo form_label('Password','password');
-							$data = array('class'=>'form-control','name'=>'password','id'=>'password','type'=>'password','value'=>set_value('password', $record->password));
-							echo form_input($data);
-							echo form_error('password') ? form_error('password', '<p class="help-block">','</p>') : '';
-							?>
-						</div>
-					</div>
-					<div class="col-md-12">
-						<div class="form-group <?php echo form_error('repassword') ? 'has-error' : null; ?>">
-							<?php
-							echo form_label('Ulangi Password','repassword');
-							$data = array('class'=>'form-control','name'=>'repassword','id'=>'repassword','type'=>'password','value'=>set_value('repassword', $record->repassword));
-							echo form_input($data);
-							echo form_error('repassword') ? form_error('repassword', '<p class="help-block">','</p>') : '';
-							?>
-						</div>
-					</div>
-					<div class="col-md-12">
 						<div class="form-group <?php echo form_error('telpon') ? 'has-error' : null; ?>">
 							<?php
 							echo form_label('Telpon','telpon');
@@ -65,14 +45,14 @@
 						</div>
 					</div>
 					<div class="col-md-12">
-						<div class="form-group <?php echo form_error('pengelola') ? 'has-error' : null; ?>">
-							<?php 
-							echo form_label('Pengelola/Urusan','pengelola');
-							$selected = set_value('pengelola', $record->pengelola_id);
-							echo form_dropdown('pengelola', $pengelola, $selected, "class='form-control select2' name='pengelola' id='pengelola'");
-							echo form_error('pengelola') ? form_error('pengelola', '<p class="help-block">','</p>') : '';
-							?>
-						</div>
+					<div class="form-group <?php echo form_error('pengelola') ? 'has-error' : null; ?>">
+						<?php 
+						echo form_label('Pengelola/Urusan','pengelola');
+						$selected = set_value('pengelola', $record->pengelola_id);
+						echo form_dropdown('pengelola', $pengelola, $selected, "class='form-control select2' name='pengelola' id='pengelola'");
+						echo form_error('pengelola') ? form_error('pengelola', '<p class="help-block">','</p>') : '';
+						?>
+					</div>
 					</div>
 					<div class="col-md-12">
 						<div class="form-group <?php echo form_error('level') ? 'has-error' : null; ?>">

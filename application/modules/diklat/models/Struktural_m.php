@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Struktural_m extends MY_Model
 {
-	public $table = 'identitas'; // you MUST mention the table name
+	public $table = 'diklat'; // you MUST mention the table name
 	public $primary_key = 'id'; // you MUST mention the primary key
 	public $fillable = array(); // If you want, you can set an array with the fields that can be filled by insert/update
 	public $protected = array(); // ...Or you can set an array with the fields that cannot be filled by insert/update
@@ -24,16 +24,11 @@ class Struktural_m extends MY_Model
     {
         $record = new stdClass();
         $record->id = '';
-		$record->nip = '';
-		//$record->username = '';
-		$record->password = '';
-		$record->repassword = '';
-		$record->fullname = '';
-		$record->email = '';
-		$record->telpon = '';
-		$record->pengelola_id = '';
-		$record->level = '';
-		$record->active = '';
+        $record->email = '';
+        $record->kategori_id = '';
+        $record->jenis_id = '';
+        $record->periode = '';
+        $record->penyelenggara = '';
         return $record;
     }
 	
@@ -109,42 +104,117 @@ class Struktural_m extends MY_Model
         return $query->row();
     }
 	
-	public function get_group()
-	{
-        $query = $this->db->order_by('id', 'ASC')->get('groups');
-        if($query->num_rows() > 0){
-        $dropdown[''] = 'Pilih Group/Tingkatan Pengguna';
-		foreach ($query->result() as $row)
-		{
-			$dropdown[$row->id] = $row->name;
-		}
-        }else{
-            $dropdown[''] = 'Belum Ada Group/Tingkatan Pengguna Tersedia'; 
-        }
-		return $dropdown;
-	}
-	
-	public function get_pengelola()
-	{
-		$this->db->where('deleted_at',NULL);
-        $query = $this->db->order_by('kode', 'ASC')->get('ref_pengelola');
-        if($query->num_rows() > 0){
-        $dropdown['00000'] = 'Semua Pengelola/Urusan';
-		foreach ($query->result() as $row)
-		{
-			$dropdown[$row->kode] = $row->kode.' - '.$row->pengelola;
-		}
-        }else{
-            $dropdown[''] = 'Belum Ada Pengelola/Urusan Tersedia';
-        }
-		return $dropdown;
-	}
-	
-	
 	public function insert_data($data)
 	{
 		$this->db->insert($this->table, $data);
 		return $this->db->insert_id();
+    }
+    
+    public function get_jenis($kategori=null)
+	{
+        $this->db->where('deleted_at',NULL);
+        $this->db->where('kategori_id',$kategori);
+        $query = $this->db->order_by('jenis', 'ASC')->get('ref_jenis');
+        if($query->num_rows() > 0){
+        $dropdown[] = 'Pilih Jenis Jabatan';
+		foreach ($query->result() as $row)
+		{
+			$dropdown[$row->id] = $row->jenis;
+		}
+        }else{
+            $dropdown[] = 'Belum Ada Jenis Jabatan Tersedia';
+        }
+		return $dropdown;
+    }
+    
+    public function get_jenjang($jenis=null)
+	{
+        $this->db->where('deleted_at',NULL);
+        $this->db->where('jenis_id',$jenis);
+        $query = $this->db->order_by('jenjang', 'ASC')->get('ref_jenjang');
+        if($query->num_rows() > 0){
+        $dropdown[] = 'Pilih Jenjang Jabatan';
+		foreach ($query->result() as $row)
+		{
+			$dropdown[$row->id] = $row->jenjang;
+		}
+        }else{
+            $dropdown[] = 'Belum Ada Jenjang Jabatan Tersedia';
+        }
+		return $dropdown;
+    }
+    
+    public function get_diklat($jenis=null, $jenjang=null)
+	{
+        $this->db->where('deleted_at',NULL);
+        $this->db->where('jenis_id',$jenis);
+        $this->db->where('jenjang_id',$jenjang);
+        $query = $this->db->order_by('jenjang_id', 'ASC')->get('ref_diklat');
+        if($query->num_rows() > 0){
+        $dropdown[] = 'Pilih Diklat Jabatan';
+		foreach ($query->result() as $row)
+		{
+			$dropdown[$row->id] = $row->diklat;
+		}
+        }else{
+            $dropdown[] = 'Belum Ada Diklat Jabatan Tersedia';
+        }
+		return $dropdown;
+    }
+    
+    public function get_periode()
+	{
+		$dropdown[''] = 'Pilih Salah Satu Tahun';
+		$awal = date('Y')+1;
+		$akhir = date('Y')+3;
+		
+		for ($i=$awal ; $i <= $akhir; $i++)
+		{
+			$dropdown[$i] = $i;
+		}
+		
+		return $dropdown;
 	}
+    
+    public function get_syarat($diklat=null)
+	{
+        $this->db->where('deleted_at',NULL);
+        $this->db->where('diklat_id',$diklat);
+        $query = $this->db->order_by('syarat', 'ASC')->get('ref_diklat_detail');
+        if($query->num_rows() > 0){
+            return $query->result();
+        }else{
+            return FALSE;
+        }
+    }
+
+    public function get_data($user_id=null)
+	{
+        $this->db->where('deleted_at',NULL);
+        $this->db->where('user_id',$user_id);
+        $this->db->limit(1);
+        $query = $this->db->get('identitas');
+        if($query->num_rows() > 0){
+            return $query->row();
+        }else{
+            return FALSE;
+        }
+    }
+
+    public function get_kode() {
+		$query = $this->db->query("SELECT MAX(RIGHT(kode,5)) AS kode FROM bpsdm_diklat");
+		$kode = "";
+	  
+		if($query->num_rows() > 0){ 
+			  foreach($query->result() as $k){
+				  $tmp = ((int)$k->kode)+1;
+				  $kode = sprintf("%05s", $tmp);
+			  }
+		 }else{
+		  $kode = "00001";
+		}
+		$karakter = "S"; 
+		return $karakter.$kode;
+    }
 
 }
