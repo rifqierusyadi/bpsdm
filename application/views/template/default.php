@@ -46,7 +46,7 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-book"></i> Data<span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
                 <li><a href="<?= site_url('data/registrasi'); ?>"><i class="fa fa-file-text-o"></i> Data Registrasi</a></li>
-                <li><a href="<?= site_url('data/registrasi#'); ?>"><i class="fa fa-file-text-o"></i> Data Permohonan Diklat</a></li>
+                <li><a href="<?= site_url('data/pemohon'); ?>"><i class="fa fa-file-text-o"></i> Data Permohonan Diklat</a></li>
               </ul>
             </li>
             <li><a href="<?= site_url('daftar'); ?>"><i class="fa fa-file-text"></i> Registrasi Diklat</a></li>

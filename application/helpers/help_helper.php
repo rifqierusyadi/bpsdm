@@ -230,3 +230,34 @@ if (! function_exists('diklat'))
         }
 	}
 }
+
+if (! function_exists('kategori'))
+{
+	function kategori($id=null)
+	{
+		if($id == 1){
+			$kategori = 'STRUKTURAL';
+		}elseif($id == 2){
+			$kategori = 'FUNGSIONAL';
+		}else{
+			$kategori = 'TEKNIS';
+		}
+
+		return $kategori;
+	}
+}
+
+if (! function_exists('jenjang'))
+{
+	function jenjang($id=null)
+	{
+		$CI =& get_instance();
+		$CI->db->where('id', $id);
+		$query = $CI->db->get('ref_jenjang');
+        if($query->num_rows() > 0){
+			return $query->row()->jenjang;
+		}else{
+            return FALSE;
+        }
+	}
+}

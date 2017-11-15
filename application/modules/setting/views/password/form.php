@@ -11,7 +11,6 @@
 			</div>
 			<form id="formID" role="form" action="" method="post">
 			<input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>" />
-			<input type="hidden" name="unker_idx" id="unker_idx" value="<?= set_value('unker_idx', $record->unker_id); ?>"/>
 			<!-- box-body -->
 			<div class="box-body">
 				<div class="row">

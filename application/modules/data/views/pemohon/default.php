@@ -23,11 +23,15 @@
 									<th width="5px"><input type="checkbox" id="check-all"></th>
 									<th>NIP</th>
 									<th>Nama Lengkap</th>
-									<th>Email</th>
-									<th>Pengelola/Urusan Kepegawaian</th>
-									<th>Level</th>
+									<th>Instansi</th>
+									<th>Unit Kerja</th>
+									<th>Satuan Kerja</th>
+									<th>Diklat</th>
+									<th>Jenjang</th>
+									<th>Periode</th>
 									<th>Active</th>
 									<th>Verify</th>
+									<th>Approve</th>
 								</tr>
 							</thead>
 							<tbody>
