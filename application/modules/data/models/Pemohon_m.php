@@ -109,4 +109,17 @@ class Pemohon_m extends MY_Model
         $query = $this->db->get($this->table);
         return $query->row();
     }
+
+    function get_data($nip=null)
+    {
+        $this->db->where('nip', $nip);
+		$this->db->where('deleted_at', NULL);
+        $query = $this->db->get('identitas');
+        if($query->num_rows() > 0){
+            return $query->row();
+        }else{
+            return FALSE;
+        }
+        
+    }
 }

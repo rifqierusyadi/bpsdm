@@ -145,6 +145,32 @@ class Registrasi_m extends MY_Model
 	{
 		$this->db->insert($this->table, $data);
 		return $this->db->insert_id();
-	}
+    }
+    
+    public function get_data($nip=null)
+    {
+        $this->db->where('nip', $nip);
+		$this->db->where('deleted_at', NULL);
+        $query = $this->db->get('identitas');
+        if($query->num_rows() > 0){
+            return $query->row();
+        }else{
+            return FALSE;
+        }
+        
+    }
+
+    public function get_verify($nip=null)
+    {
+        $this->db->where('nip', $nip);
+		$this->db->where('deleted_at', NULL);
+        $query = $this->db->get('users');
+        if($query->num_rows() > 0){
+            return $query->row()->verify;
+        }else{
+            return FALSE;
+        }
+        
+    }
 
 }

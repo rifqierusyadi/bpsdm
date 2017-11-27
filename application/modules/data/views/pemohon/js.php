@@ -3,41 +3,31 @@ $(function () {
 	$('.select2').select2();
 });
 
-$("#unker").change(function(){
-	var unker = $("#unker").val();
-	if(unker){
+$(document).on('click', '#getUser', function(e){
+		e.preventDefault();
+		var uid = $(this).data('id'); // get id of clicked row
+		$('#dynamic-content').html(''); // leave this div blank
+		$('#modal-loader').show();      // load ajax loader on button click
+	
 		$.ajax({
-				type: "POST",
-				async: false,
-				url : "<?php echo site_url('setting/user/get_satker')?>",
-				data: {
-				   'unker': unker,
+			url: '<?php echo site_url('data/pemohon/get_profile'); ?>',
+			type: 'POST',
+			data: {
+				   'nip': uid,
 				   '<?php echo $this->security->get_csrf_token_name(); ?>' : '<?php echo $this->security->get_csrf_hash(); ?>'
-				},
-				success: function(msg){
-					$('#satker').html(msg);
-				}
+			},
+			dataType: 'html'
+		})
+		.done(function(data){
+			console.log(data); 
+			$('#dynamic-content').html(''); // blank before load.
+			$('#dynamic-content').html(data); // load here
+			$('#modal-loader').hide(); // hide loader  
+		})
+		.fail(function(){
+			$('#dynamic-content').html('<i class="glyphicon glyphicon-info-sign"></i> Something went wrong, Please try again...');
+			$('#modal-loader').hide();
 		});
-	}
-});
 
-//ready
-$("#unker_idx").ready(function(){
-	var unker = $("#unker").val();
-	var unker_idx = $("#unker_idx").val();
-	if(unker_idx){
-		$.ajax({
-				type: "POST",
-				async: false,
-				url : "<?php echo site_url('setting/user/get_satker/'.$this->uri->segment(4)); ?>",
-				data: {
-				   'unker': unker,
-				   '<?php echo $this->security->get_csrf_token_name(); ?>' : '<?php echo $this->security->get_csrf_hash(); ?>'
-				},
-				success: function(msg){
-					$('#satker').html(msg);
-				}
-		});
-	}
 });
 </script>

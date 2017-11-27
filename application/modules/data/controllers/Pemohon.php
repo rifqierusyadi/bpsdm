@@ -31,6 +31,13 @@ class Pemohon extends CI_Controller {
 		
 		$this->load->view('template/default', $data);
 	}
+
+	public function get_profile()
+	{
+		$nip = $this->input->post('nip');
+		$data['record']		= $this->data->get_data($nip);
+		$this->load->view('pemohon/modal', $data);
+	}
 	
 	// public function created()
 	// {
@@ -69,7 +76,7 @@ class Pemohon extends CI_Controller {
             $no++;
             $col = array();
             $col[] = '<input type="checkbox" class="data-check" value="'.$row->id.'">';
-			$col[] = $row->nip;
+			$col[] = '<a href="" data-toggle="modal" data-target="#view-modal" data-id="'.$row->nip.'" id="getUser">'.$row->nip.'</a>';
 			$col[] = $row->nama;
 			$col[] = $row->instansi;
 			$col[] = $row->unker;

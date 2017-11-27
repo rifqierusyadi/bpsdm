@@ -13,6 +13,7 @@ class Registrasi extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->helper('help_helper');
 		$this->load->model('registrasi_m', 'data');
 		signin();
 		group(array('1','2','3'));
@@ -29,6 +30,15 @@ class Registrasi extends CI_Controller {
 		$data['js'] 		= $this->folder.'js';
 		
 		$this->load->view('template/default', $data);
+	}
+
+	public function get_profile()
+	{
+		$nip = $this->input->post('nip');
+		$data['record']		= $this->data->get_data($nip);
+		$data['verify']		= $this->data->get_verify($nip);
+
+		$this->load->view('registrasi/modal', $data);
 	}
 	
 	public function created()
@@ -68,7 +78,7 @@ class Registrasi extends CI_Controller {
             $no++;
             $col = array();
             $col[] = '<input type="checkbox" class="data-check" value="'.$row->id.'">';
-			$col[] = $row->nip;
+			$col[] = '<a href="" data-toggle="modal" data-target="#view-modal" data-id="'.$row->nip.'" id="getUser">'.$row->nip.'</a>';
 			$col[] = $row->fullname;
 			$col[] = $row->email;
 			$col[] = $row->pengelola ? $row->pengelola : 'Semua';

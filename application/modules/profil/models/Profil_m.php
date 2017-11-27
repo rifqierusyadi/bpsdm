@@ -26,14 +26,14 @@ class Profil_m extends MY_Model
         $record->id = '';
 		$record->nip = '';
 		//$record->username = '';
-		$record->password = '';
-		$record->repassword = '';
-		$record->fullname = '';
-		$record->email = '';
-		$record->telpon = '';
-		$record->pengelola_id = '';
-		$record->level = '';
-		$record->active = '';
+		// $record->password = '';
+		// $record->repassword = '';
+		// $record->fullname = '';
+		// $record->email = '';
+		// $record->telpon = '';
+		// $record->pengelola_id = '';
+		// $record->level = '';
+		// $record->active = '';
         return $record;
     }
 	

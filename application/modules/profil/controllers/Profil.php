@@ -113,6 +113,7 @@ class Profil extends CI_Controller {
 			'pangkat_id' => $this->input->post('pangkat_id'),
 			'ktpu_id' => $this->input->post('ktpu_id'),
 			'jurusan' => $this->input->post('jurusan'),
+			'tahun' => $this->input->post('tahun'),
 		);
         
         if($this->validation()){
@@ -140,6 +141,7 @@ class Profil extends CI_Controller {
 				'pangkat_id' => $this->input->post('pangkat_id'),
 				'ktpu_id' => $this->input->post('ktpu_id'),
 				'jurusan' => $this->input->post('jurusan'),
+				'tahun' => $this->input->post('tahun'),
             );
 		$idx = $this->db->get_where('identitas', array('user_id'=> $id))->row()->id;
         if($this->validation($id)){

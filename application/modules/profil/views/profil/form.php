@@ -176,6 +176,16 @@
 							?>
 						</div>
 					</div>
+					<div class="col-md-12">
+						<div class="form-group <?php echo form_error('tahun') ? 'has-error' : null; ?>">
+							<?php
+							echo form_label('Tahun Lulus','tahun');
+							$data = array('class'=>'form-control','name'=>'tahun','id'=>'jurtahunusan','type'=>'text','value'=>set_value('tahun', $record->tahun));
+							echo form_input($data);
+							echo form_error('tahun') ? form_error('tahun', '<p class="help-block">','</p>') : '';
+							?>
+						</div>
+					</div>
 				</div>
 			</div>
 			<!-- ./box-body -->
