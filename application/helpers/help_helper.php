@@ -261,3 +261,19 @@ if (! function_exists('jenjang'))
         }
 	}
 }
+
+if (! function_exists('kepegawaian'))
+{
+	function kepegawaian($kode=null)
+	{
+		$CI =& get_instance();
+		$CI->db->where('kode', $kode);
+		$CI->db->where('deleted_at', null);
+		$query = $CI->db->get('ref_pengelola');
+        if($query->num_rows() > 0){
+			return $query->row()->pengelola;
+		}else{
+            return FALSE;
+        }
+	}
+}

@@ -85,6 +85,7 @@ class Registrasi extends CI_Controller {
 			$col[] = level($row->level);
 			$col[] = $row->active ? '<a type="button" class="btn btn-xs btn-flat btn-success"><i class="fa fa-check-circle"></i> </a>' : '<a type="button" class="btn btn-xs btn-flat btn-danger"><i class="fa fa-circle-o"></i> </a>';
 			$col[] = $row->verify ? '<button type="button" class="btn btn-xs btn-flat btn-success"><i class="fa fa-check-circle"></i> </button>' : '<button type="button" class="btn btn-xs btn-flat btn-danger"><i class="fa fa-circle-o"></i> </button>';
+			$col[] = $row->dokumen ? '<a href="'.base_url('document/'.$row->dokumen).'" class="btn btn-xs btn-flat btn-info" target="_blank"><i class="fa fa-file-text"></i> </a>' : '<a href="" class="btn btn-xs btn-flat btn-danger"><i class="fa fa-file-text"></i> </a>';
             
             //add html for action
             
@@ -134,6 +135,24 @@ class Registrasi extends CI_Controller {
             $this->data->update($data, $id);
 			helper_log("edit", "Merubah Daftar Registrasi");
         }
+	}
+	
+	public function verify($id)
+    {
+			$find = $this->db->get_where('users', array('id'=>$id))->row();
+			$verify = $find->verify == 1 ? '0' : '1';
+			$data = array(
+				'verify' => $verify
+			);
+			
+			//$this->db->update('users', $data, array('id'=>$id));
+			$update = $this->db->update('users', $data, array('id'=>$id));
+			if($update){
+				$this->send_mail($nama=$find->fullname, $nip=$find->nip,  $email=$find->email, $status=$verify);
+			}
+			helper_log("edit", "Merubah Daftar Pemohon Diklat");
+			//echo json_encode(array("status" => TRUE));
+			redirect('data/registrasi');
     }
     
     public function ajax_delete($id)
@@ -201,5 +220,43 @@ class Registrasi extends CI_Controller {
         }else{
             echo form_dropdown('satker', array(''=>'Pilih Satuan Kerja'), '', "class='form-control select2' name='satker' id='satker'");
         }
-    }
+	}
+	
+	private function send_mail($nama=null, $nip=null,  $email=null, $status=null)
+	{
+		//Load email library
+		$this->load->library('email');
+		$this->load->library('encrypt');
+
+		//SMTP & mail configuration
+		$config = array(
+			'protocol'  => 'smtp',
+			'smtp_host' => 'ssl://smtp.googlemail.com',
+			'smtp_port' => 465,
+			'smtp_user' => 'rifqie@gmail.com',
+			'smtp_pass' => 'Handaktahuaj4',
+			'mailtype'  => 'html',
+			'charset'   => 'utf-8'
+		);
+		$this->email->initialize($config);
+		$this->email->set_mailtype("html");
+		$this->email->set_newline("\r\n");
+
+		//Email content
+		if($status){
+			$htmlContent = '<h3>Data Registrasi SIDA KALIBRASI BPSDM Provinsi Kalimantan Selatan</h3>';
+			$htmlContent .= '<p>Anda telah mendaftarkan diri anda atas nama '.$nama.' dengan nip '.$nip.' pada SIDA KALIBRASI</p>';
+			$htmlContent .= '<p>Saat ini akun anda telah di verifikasi. Silahkan anda login pada halaman berikut ini http://sida.kalselprov.go.id.</p>';
+		}else{
+			$htmlContent = '<h3>Data Registrasi SIDA KALIBRASI BPSDM Provinsi Kalimantan Selatan</h3>';
+			$htmlContent .= '<p>Anda telah mendaftarkan diri anda atas nama '.$nama.' dengan nip '.$nip.' pada SIDA KALIBRASI</p>';
+			$htmlContent .= '<p>Saat ini akun anda telah ditolak verifikasinya. Silahkan anda hubungi administrator pada halaman berikut ini http://sida.kalselprov.go.id.</p>';
+		}
+		$this->email->to($email);
+		$this->email->from('rifqie.rusyadi@gmail.com','SIDA KALIBRASI');
+		$this->email->subject('Data Registrasi SIDA KALIBRASI KALSEL');
+		$this->email->message($htmlContent);
+		//Send email
+		$this->email->send();
+	}
 }

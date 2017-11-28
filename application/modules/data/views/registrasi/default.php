@@ -28,6 +28,7 @@
 									<th>Level</th>
 									<th>Active</th>
 									<th>Verify</th>
+									<th>Doc</th>
 								</tr>
 							</thead>
 							<tbody>

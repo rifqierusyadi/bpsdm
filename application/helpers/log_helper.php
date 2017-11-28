@@ -43,17 +43,14 @@ function level($id=null)
 	if($id == 1){
 		$level = 'Administrator';
 	}elseif($id == 2){
-		$level = 'Manager';
+		$level = 'Pengelola';
 	}elseif($id == 3){
 		$level = 'Pengawas';
 	}elseif($id == 4){
-		$level = 'SKPD';
-	}elseif($id == 5){
-		$level = 'Pegawai';
+		$level = 'ASN';
 	}else{
 		$level = 'Unknown';
 	}
-	
 	return $level;
 }
 

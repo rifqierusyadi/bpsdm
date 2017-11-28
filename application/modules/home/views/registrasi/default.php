@@ -20,7 +20,8 @@
 					<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
 				</div>
 			</div>
-			<form id="formID" role="form" action="<?= site_url('home/registrasi/register'); ?>" method="post">
+			<?= form_open_multipart('home/registrasi/register'); ?>
+			
 			<input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>" />
 			<!-- box-body -->
 			<div class="box-body">
@@ -35,7 +36,8 @@
 							?>
 						</div>
 					</div>    
-                    <div class="col-md-12">
+                    
+					<div class="col-md-12">
 						<div class="form-group <?php echo form_error('fullname') ? 'has-error' : null; ?>">
 							<?php
 							echo form_label('Nama Lengkap','fullname');
@@ -45,6 +47,7 @@
 							?>
 						</div>
 					</div>
+					
 					<div class="col-md-12">
 						<div class="form-group <?php echo form_error('email') ? 'has-error' : null; ?>">
 							<?php
@@ -55,6 +58,7 @@
 							?>
 						</div>
 					</div>
+					
 					<div class="col-md-12">
 						<div class="form-group <?php echo form_error('password') ? 'has-error' : null; ?>">
 							<?php
@@ -65,6 +69,7 @@
 							?>
 						</div>
 					</div>
+					
 					<div class="col-md-12">
 						<div class="form-group <?php echo form_error('repassword') ? 'has-error' : null; ?>">
 							<?php
@@ -75,6 +80,7 @@
 							?>
 						</div>
 					</div>
+					
 					<div class="col-md-12">
 						<div class="form-group <?php echo form_error('telpon') ? 'has-error' : null; ?>">
 							<?php
@@ -85,6 +91,7 @@
 							?>
 						</div>
 					</div>
+
 					<div class="col-md-12">
 						<div class="form-group <?php echo form_error('pengelola') ? 'has-error' : null; ?>">
 							<?php 
@@ -95,6 +102,31 @@
 							?>
 						</div>
 					</div>
+					
+					<div class="col-md-12">
+					<div class="form-group  <?php echo form_error('file') ? 'has-error' : 'has-feedback'; ?>">
+						<?php 
+							echo form_label('Upload Dokumen','file');
+						?>
+						<input type="file" class="form-control" name="file" id="file" placeholder="Silahkan Upload Dokumen SK Pangkat / Jabatan Terakhir" value="<?= set_value('file'); ?>">
+						<?= form_error('file') ? form_error('file', '<p class="help-block">','</p>') : '<span style="font-size:11px;">Dokumen SK Pangkat/Jabatan Akhir PDF|JPG|PNG. Max 2 MB</span>'; ?>
+					</div>
+					</div>
+
+					<div class="col-md-12">
+					<div class="form-group  <?php echo form_error('security_code') ? 'has-error' : 'has-feedback'; ?>">
+						<?php 
+							echo form_label('Kode Verifikasi','security_code');
+							$data = array('class'=>'form-control','name'=>'security_code','id'=>'security_code','type'=>'text','value'=>set_value('security_code'),'placeholder'=>'Masukan Kode Di Bawah Ini');
+							echo form_input($data);
+							echo form_error('security_code') ? form_error('security_code', '<p class="help-block">','</p>') : '';
+						?>
+					</div>
+					</div>
+					
+					<div class="col-md-12">
+						<p><?php echo $img; ?></p>
+					</div>
 				</div>
 			</div>
 			<!-- ./box-body -->
@@ -102,7 +134,8 @@
 				<button type="submit" class="btn btn-sm btn-flat btn-success"><i class="fa fa-save"></i> Daftar</button>
 				<button type="reset" class="btn btn-sm btn-flat btn-warning"><i class="fa fa-refresh"></i> Reset</button>
 			</div>
-			</form>
+			<!-- </form> -->
+			<?= form_close(); ?>
 		</div>
 	</div>
 </div>

@@ -24,6 +24,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
   <?= isset($style) ? $this->load->view($style) : ''; ?>
   <style>.logo{float:left; margin:3px;}.title{font-size:20px;font-weight:600;}.subtitle{font-size:13px;}</style>
+  <style>.pace-done{background-image: url("<?= base_url('asset/dist/img/bg-2.jpeg'); ?>") !important; background-repeat: no-repeat; background-attachment: fixed; background-position: center; background-size: cover;}.invoice{background: rgba(255,255,255, 0.9) !important}</style>
 </head>
 <body>
 <div class="wrapper">
@@ -49,7 +50,7 @@
         <a href="<?= site_url('home/dashboard'); ?>" class="btn btn-block btn-social btn-bitbucket"><i class="fa fa-home"></i> Beranda</a>
         <a href="<?= site_url('home/registrasi'); ?>" class="btn btn-block btn-social btn-bitbucket"><i class="fa fa-file-text"></i> Registrasi</a>
         <a href="#" class="btn btn-block btn-social btn-bitbucket"><i class="fa fa-check-square-o"></i> Syarat Ketentuan</a>
-        <a href="<?= site_url('home/kontak'); ?>" class="btn btn-block btn-social btn-bitbucket"><i class="fa fa-envelope-o"></i> Kontak</a>
+        <a href="#" class="btn btn-block btn-social btn-bitbucket"><i class="fa fa-envelope-o"></i> Kontak</a>
         <a href="<?= site_url('login'); ?>" class="btn btn-block btn-social btn-bitbucket"><i class="fa fa-sign-in"></i> Login</a>
       </div>
       </div>

@@ -122,4 +122,34 @@ class Pemohon_m extends MY_Model
         }
         
     }
+
+    function get_diklat($id=null)
+    {
+        $this->db->select('a.*, b.nip, b.nama, b.instansi, b.unker, b.satker, b.jabatan, b.eselon_id, b.pangkat_id, b.ktpu_id, b.jurusan, b.tahun,  c.email, c.active, c.verify, c.pengelola_id');
+		$this->db->from('diklat a');
+        $this->db->join('identitas b','a.user_id = b.user_id','LEFT');
+        $this->db->join('users c','a.user_id = c.id','LEFT');
+        $this->db->where('a.id', $id);
+		$this->db->where('a.deleted_at', NULL);
+        $query = $this->db->get('diklat');
+        if($query->num_rows() > 0){
+            return $query->row();
+        }else{
+            return FALSE;
+        }
+        
+    }
+
+    public function get_verify($nip=null)
+    {
+        $this->db->where('nip', $nip);
+		$this->db->where('deleted_at', NULL);
+        $query = $this->db->get('users');
+        if($query->num_rows() > 0){
+            return $query->row()->verify;
+        }else{
+            return FALSE;
+        }
+        
+    }
 }

@@ -31,7 +31,7 @@ table = $('#tableID').DataTable({
             },
         search:"Pencarian:",
         },
-	  responsive: true,
+	  responsive: false,
         columnDefs: [
             { 
                 targets:[ 0 ],

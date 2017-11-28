@@ -50,9 +50,9 @@
 		</li>
 	</ul>
 	<?php if($verify){ ?>
-		<a href="<?= site_url('data/registrasi/verifikasi'); ?>" class="btn btn-success btn-block"><b>Sudah TerVerifikasi </b></a>
+		<a href="<?= site_url('data/registrasi/verify/'.$record->user_id); ?>" class="btn btn-success btn-block"><b>Sudah TerVerifikasi </b></a>
 	<?php }else{ ?>
-		<a href="<?= site_url('data/registrasi/verifikasi'); ?>" class="btn btn-danger btn-block"><b>Belum Terverifikasi</b></a>
+		<a href="<?= site_url('data/registrasi/verify/'.$record->user_id); ?>" class="btn btn-danger btn-block"><b>Belum Terverifikasi</b></a>
 	<?php } ?>
 </div>
 <!-- ./box-body -->
