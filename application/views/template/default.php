@@ -7,7 +7,8 @@
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <link rel="stylesheet" href="<?= base_url('asset/bootstrap/css/bootstrap.min.css'); ?>">
   <link rel="stylesheet" href="<?= base_url('asset/plugins/datatables/dataTables.bootstrap.css'); ?>">
-	<link rel="stylesheet" href="<?= base_url('asset/plugins/datatables/extensions/Responsive/css/responsive.bootstrap.min.css'); ?>">
+	<link rel="stylesheet" href="<?= base_url('asset/plugins/datatables/extensions/Responsive/css/dataTables.responsive.css'); ?>">
+  <link rel="stylesheet" href="<?= base_url('asset/plugins/datatables/extensions/Responsive/css/responsive.bootstrap.min.css'); ?>">
   <link rel="stylesheet" href="<?= base_url('asset/plugins/tableexport/dist/css/tableexport.min.css'); ?>">
   <link rel="stylesheet" href="<?= base_url('asset/plugins/datepicker/datepicker3.css'); ?>" />
 	<link rel="stylesheet" href="<?= base_url('asset/plugins/select2/select2.min.css'); ?>" />
@@ -68,7 +69,8 @@
 						<li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-print"></i> Laporan <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="<?= site_url('report/#'); ?>" target="_BLANK"><i class="fa fa-file-text-o"></i> Laporan Registrasi</a></li>
+                <li><a href="<?= site_url('report/pemohon'); ?>" target="_BLANK"><i class="fa fa-file-text-o"></i> Pemohon Approve</a></li>
+                <li><a href="<?= site_url('report/pemohon/pending'); ?>" target="_BLANK"><i class="fa fa-file-text-o"></i> Pemohon Pending</a></li>
               </ul>
             </li>
 						<li><a href="<?= site_url('setting/informasi'); ?>"><i class="fa fa-feed"></i> Informasi</a></li>
@@ -168,6 +170,5 @@
 <script src="<?= base_url('asset/plugins/select2/select2.full.min.js'); ?>"></script>
 <script src="<?= base_url('asset/app.js'); ?>"></script>
 <?= isset($js) ? $this->load->view($js) : ''; ?>
-
 </body>
 </html>

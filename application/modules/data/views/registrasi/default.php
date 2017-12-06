@@ -17,7 +17,7 @@
 						<button class="btn btn-sm btn-flat btn-danger" onclick="deleted_all();"><i class="glyphicon glyphicon-trash"></i> Hapus</button> -->
 						<button class="btn btn-sm btn-flat btn-default" data-toggle="tooltip" title="Reload Data" data-placement="right" onclick="reload_table()"><i class="glyphicon glyphicon-refresh"></i> Reload Data</button>
 						<span id="key" style="display: none;"><?= $this->security->get_csrf_hash(); ?></span>
-						<table id="tableID" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+						<table id="tableIDX" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
 							<thead>
 								<tr>
 									<th width="5px"><input type="checkbox" id="check-all"></th>

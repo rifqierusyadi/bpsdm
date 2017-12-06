@@ -95,7 +95,11 @@ class Registrasi_m extends MY_Model
         $this->_get_datatables_query();
         if($_POST['length'] != -1)
         $this->db->where('a.deleted_at', NULL);
-        $this->db->where('level', 4);
+        if($this->session->userdata('level') == 2){
+            $pengelola = $this->db->get_where('users', array('id'=>$this->session->userdata('userID')))->row()->pengelola_id;
+            $this->db->where('a.pengelola_id', $pengelola);
+        }
+        $this->db->where('a.level', 4);
         $this->db->limit($_POST['length'], $_POST['start']);
         $query = $this->db->get();
         return $query->result();
@@ -126,7 +130,7 @@ class Registrasi_m extends MY_Model
 	
 	public function get_pengelola()
 	{
-		$this->db->where('deleted_at',NULL);
+        $this->db->where('deleted_at',NULL);
         $query = $this->db->order_by('kode', 'ASC')->get('ref_pengelola');
         if($query->num_rows() > 0){
         $dropdown['00000'] = 'Semua Pengelola/Urusan';

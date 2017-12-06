@@ -76,8 +76,8 @@ class Registrasi extends CI_Controller {
 		
         foreach ($record as $row) {
             $no++;
-            $col = array();
-            $col[] = '<input type="checkbox" class="data-check" value="'.$row->id.'">';
+			$col = array();
+			$col[] = '<input type="checkbox" class="data-check" value="'.$row->id.'">';
 			$col[] = '<a href="" data-toggle="modal" data-target="#view-modal" data-id="'.$row->nip.'" id="getUser">'.$row->nip.'</a>';
 			$col[] = $row->fullname;
 			$col[] = $row->email;

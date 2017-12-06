@@ -82,13 +82,15 @@ class Pemohon extends CI_Controller {
 		
         foreach ($record as $row) {
             $no++;
-            $col = array();
+			$col = array();
+			$col[] = '';
             $col[] = '<input type="checkbox" class="data-check" value="'.$row->id.'">';
+			$col[] = $row->kode;
 			$col[] = '<a href="" data-toggle="modal" data-target="#view-modal" data-id="'.$row->nip.'" id="getUser">'.$row->nip.'</a>';
 			$col[] = $row->nama;
 			$col[] = $row->instansi;
 			$col[] = $row->unker;
-			$col[] = $row->satker;
+			$col[] = $row->satker;	
 			$col[] = kategori($row->kategori_id);
 			$col[] = jenjang($row->jenjang_id);
 			$col[] = $row->periode;

@@ -97,6 +97,10 @@ class Pemohon_m extends MY_Model
         $this->_get_datatables_query();
         if($_POST['length'] != -1)
         $this->db->where('a.deleted_at', NULL);
+        if($this->session->userdata('level') == 2){
+            $pengelola = $this->db->get_where('users', array('id'=>$this->session->userdata('userID')))->row()->pengelola_id;
+            $this->db->where('c.pengelola_id', $pengelola);
+        }
         $this->db->limit($_POST['length'], $_POST['start']);
         $query = $this->db->get();
         return $query->result();

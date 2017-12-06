@@ -2,7 +2,8 @@ body {
     margin: 0;
     padding: 0;
     background-color: #fff;
-    font: 7px "tahoma";
+    font-size: 10px;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 }
 
 *{
@@ -75,19 +76,23 @@ h2{
 }
 
 table.print {
-    border: 1px solid black;
+    border-collapse: collapse;
     width: 100%;
 }
 
 table.print th{
-    background-color: #000;
+    background-color: #4CAF50;
     color: white;
     text-align: center;
+    border: 1px solid #ddd;
+    padding: 4px;
 }
 
 table.print tr td{
     text-align: left;
     vertical-align: top;
+    border: 1px solid #ddd;
+    padding: 4px;
 }
 
 caption{
@@ -100,4 +105,28 @@ caption{
 
 .text{
     mso-number-format:"\@";/*force text*/
+}
+
+.left{
+    text-align: left !important;
+}
+.right{
+    text-align: right !important;
+}
+
+.center{
+    text-align: center !important;
+}
+.break{
+    page-break-after: always;
+}
+
+p{
+    padding: 0px !important;
+    margin: 0px !important;
+}
+
+ol, ul{
+    margin:0px;
+    padding-left:10px;
 }

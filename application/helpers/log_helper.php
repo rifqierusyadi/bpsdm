@@ -28,7 +28,7 @@ function helper_log($tipe = "", $str = ""){
         $log_tipe  = 6;
     }
     // paramter
-    $param['log_user']      = $CI->session->userdata('username');
+    $param['log_user']      = $CI->session->userdata('fullname');
     $param['log_tipe']      = $log_tipe;
     $param['log_desc']      = $str;
 	$param['log_ip']        = $CI->input->ip_address();

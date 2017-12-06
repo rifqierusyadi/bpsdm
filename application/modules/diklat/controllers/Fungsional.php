@@ -121,6 +121,7 @@ class Fungsional extends CI_Controller {
 				'periode' => $this->input->post('periode'),
 				'penyelenggara' => $this->input->post('penyelenggara'),
 				'syarat' => 1,
+				'kode' => $this->data->get_kode(),
 				'pengelola_id' => pengelola($this->session->userdata('userID'))
             );
         
