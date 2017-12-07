@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>LAPORAN SARANA DAN PRASARANA</title>
+	<title>BPSDM PROVINSI KALIMANTAN SELATAN</title>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="<?= base_url('asset/dist/css/print_fullpage.css'); ?>" />
@@ -13,7 +13,7 @@
     <div class="page">
 	<div class="title">
             <div class="logo"><img src="<?php echo base_url('asset/dist/img/kalsel-114.png'); ?>" width="36px"></div>
-            <div class="judul"><h3>DAFTAR SEKOLAH LUAR BIASA<br>PEMERINTAH PROVINSI KALIMANTAN SELATAN</h3></div>
+            <div class="judul"><h3>DAFTAR PEMOHON DIKLAT YANG BELUM DI PROSES/DITOLAK<br>BADAN PENGEMBANGAN SUMBER DAYA MANUSIA<br>PEMERINTAH PROVINSI KALIMANTAN SELATAN</h3></div>
     </div>
 	<!-- identitas -->
 	<div class="tabel">
@@ -21,14 +21,16 @@
 		<thead>
 		<tr>
 			<th width="6px;">NO</th>
-			<th>SEKOLAH</th>
-			<th>NPSN</th>
-			<th>KEPALA SEKOLAH</th>
-			<th>ALAMAT LENGKAP</th>
-			<th>EMAIL</th>
-			<th>WEBSITE</th>
-			<th>TELPON</th>
-			<th>TINGKAT</th>
+			<th>Kode</th>
+			<th>NIP</th>
+			<th>Nama Lengkap</th>
+			<th>Instansi</th>
+			<th>Unit Kerja</th>
+			<th>Satuan Kerja</th>
+			<th>Diklat</th>
+			<th>Jenjang</th>
+			<th>Periode</th>
+			<th>Keterangan</th>
 		</tr>
 		</thead>
 		<tbody>
@@ -37,14 +39,16 @@
 			<?php foreach($record as $row): ?>
 			<tr>
 			<td><?php echo number_format($i).'.'; ?></td>
-			<td class="text"><?php echo $row->sekolah; ?></td>
-			<td class="text"><?php echo $row->npsn; ?></td>
-			<td class="text"><?php echo $row->kepsek; ?></td>
-			<td class="text"><?php echo $row->alamat; ?></td>
-			<td class="text"><?php echo $row->email; ?></td>
-			<td class="text"><?php echo $row->website; ?></td>
-			<td class="text"><?php echo $row->telpon; ?></td>
-			<td class="text"><?php echo tingkat($row->ktpu); ?></td>
+			<td class="text" nowrap><?php echo $row->kode; ?></td>
+			<td class="text" nowrap><?php echo $row->nip; ?></td>
+			<td class="text"><?php echo $row->nama; ?></td>
+			<td class="text"><?php echo $row->instansi; ?></td>
+			<td class="text"><?php echo $row->unker; ?></td>
+			<td class="text"><?php echo $row->satker; ?></td>
+			<td class="text"><?php echo kategori($row->kategori_id); ?></td>
+			<td class="text"><?php echo jenjang($row->jenjang_id); ?></td>
+			<td class="text"><?php echo $row->periode; ?></td>
+			<td class="text"><?php echo $row->keterangan ? $row->keterangan : '-'; ?></td>
 			</tr>
 			<?php ++$i; ?>
 			<?php endforeach; ?>

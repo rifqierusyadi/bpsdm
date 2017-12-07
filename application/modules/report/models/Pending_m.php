@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Pemohon_m extends MY_Model
+class Pending_m extends MY_Model
 {
 	public $table = 'diklat'; // you MUST mention the table name
 	public $primary_key = 'id'; // you MUST mention the primary key
@@ -28,7 +28,7 @@ class Pemohon_m extends MY_Model
         $this->db->join('identitas b','a.user_id = b.user_id','LEFT');
         $this->db->join('users c','a.user_id = c.id','LEFT');
         $this->db->where('a.deleted_at', NULL);
-        $this->db->where('a.status', 1);
+        $this->db->where('a.status', 0);
         $this->db->order_by('a.periode','ASC');
         $this->db->order_by('a.id','ASC');
         $query = $this->db->get();
@@ -39,14 +39,14 @@ class Pemohon_m extends MY_Model
         }
     }
 
-    public function get_filter_approve($pengelola = null, $kategori=null, $periode=null)
+    public function get_filter_pending($pengelola = null, $kategori=null, $periode=null)
     {
         $this->db->select('a.*, b.nip, b.nama, b.instansi, b.unker, b.satker, c.email, c.active, c.verify, c.pengelola_id');
 		$this->db->from('diklat a');
         $this->db->join('identitas b','a.user_id = b.user_id','LEFT');
         $this->db->join('users c','a.user_id = c.id','LEFT');
         $this->db->where('a.deleted_at', NULL);
-        $this->db->where('a.status', 1);
+        $this->db->where('a.status', 0);
         if($pengelola){
             $this->db->where('c.pengelola_id', $pengelola);
         }

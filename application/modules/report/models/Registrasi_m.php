@@ -1,16 +1,16 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Pemohon_m extends MY_Model
+class Registrasi_m extends MY_Model
 {
-	public $table = 'diklat'; // you MUST mention the table name
+	public $table = 'users'; // you MUST mention the table name
 	public $primary_key = 'id'; // you MUST mention the primary key
 	public $fillable = array(); // If you want, you can set an array with the fields that can be filled by insert/update
 	public $protected = array(); // ...Or you can set an array with the fields that cannot be filled by insert/update
 	
 	//ajax datatable
-    public $column_order = array(''); //set kolom field database pada datatable secara berurutan
-    public $column_search = array(''); //set kolom field database pada datatable untuk pencarian
+    public $column_order = array(); //set kolom field database pada datatable secara berurutan
+    public $column_search = array(); //set kolom field database pada datatable untuk pencarian
     public $order = array('id' => 'asc'); //order baku 
 	
 	public function __construct()
@@ -21,15 +21,15 @@ class Pemohon_m extends MY_Model
 	}
 	
 
-    public function get_pemohon()
+    public function get_registrasi()
     {
-        $this->db->select('a.*, b.nip, b.nama, b.instansi, b.unker, b.satker, c.email, c.active, c.verify, c.pengelola_id');
-		$this->db->from('diklat a');
-        $this->db->join('identitas b','a.user_id = b.user_id','LEFT');
-        $this->db->join('users c','a.user_id = c.id','LEFT');
+        $this->db->select('a.*, b.pengelola, c.tmlahir, c.tglahir, c.sex, c.agama_id, c.alamat, c.instansi, c.unker, c.satker, c.jabatan, c.jenis_id, c.eselon_id, c.pangkat_id, c.ktpu_id, c.jurusan, c.tahun');
+		$this->db->from('users a');
+        $this->db->join('ref_pengelola b','a.pengelola_id = b.kode','LEFT');
+        $this->db->join('identitas c','a.id = c.user_id','LEFT');
         $this->db->where('a.deleted_at', NULL);
-        $this->db->where('a.status', 1);
-        $this->db->order_by('a.periode','ASC');
+        $this->db->where('a.level', 4);
+        $this->db->order_by('a.pengelola_id','ASC');
         $this->db->order_by('a.id','ASC');
         $query = $this->db->get();
         if($query->num_rows() > 0){
@@ -39,45 +39,31 @@ class Pemohon_m extends MY_Model
         }
     }
 
-    public function get_filter_approve($pengelola = null, $kategori=null, $periode=null)
+    public function get_filter($pengelola=null, $eselon=null, $pangkat=null, $pendidikan=null)
     {
-        $this->db->select('a.*, b.nip, b.nama, b.instansi, b.unker, b.satker, c.email, c.active, c.verify, c.pengelola_id');
-		$this->db->from('diklat a');
-        $this->db->join('identitas b','a.user_id = b.user_id','LEFT');
-        $this->db->join('users c','a.user_id = c.id','LEFT');
+        $this->db->select('a.*, b.pengelola, c.tmlahir, c.tglahir, c.sex, c.agama_id, c.alamat, c.instansi, c.unker, c.satker, c.jabatan, c.jenis_id, c.eselon_id, c.pangkat_id, c.ktpu_id, c.jurusan, c.tahun');
+		$this->db->from('users a');
+        $this->db->join('ref_pengelola b','a.pengelola_id = b.kode','LEFT');
+        $this->db->join('identitas c','a.id = c.user_id','LEFT');
         $this->db->where('a.deleted_at', NULL);
-        $this->db->where('a.status', 1);
+        $this->db->where('a.level', 4);
         if($pengelola){
-            $this->db->where('c.pengelola_id', $pengelola);
-        }
-        
-        if($kategori){
-            $this->db->where('a.kategori_id', $kategori);
+            $this->db->where('a.pengelola_id', $pengelola);
         }
 
-        if($periode){
-            $this->db->where('a.periode', $periode);
+        if($eselon){
+            $this->db->where('c.eselon_id', $eselon);
         }
 
-        $this->db->order_by('a.periode','ASC');
-        $this->db->order_by('a.id','ASC');
-        $query = $this->db->get();
-        if($query->num_rows() > 0){
-            return $query->result();
-        }else{
-            return FALSE;
+        if($pangkat){
+            $this->db->where('c.pangkat_id', $pangkat);
         }
-    }
 
-    public function get_pending()
-    {
-        $this->db->select('a.*, b.nip, b.nama, b.instansi, b.unker, b.satker, c.email, c.active, c.verify, c.pengelola_id');
-		$this->db->from('diklat a');
-        $this->db->join('identitas b','a.user_id = b.user_id','LEFT');
-        $this->db->join('users c','a.user_id = c.id','LEFT');
-        $this->db->where('a.deleted_at', NULL);
-        $this->db->where('a.status', 0);
-        $this->db->order_by('a.periode','ASC');
+        if($pendidikan){
+            $this->db->where('c.ktpu_id', $pendidikan);
+        }
+
+        $this->db->order_by('a.pengelola_id','ASC');
         $this->db->order_by('a.id','ASC');
         $query = $this->db->get();
         if($query->num_rows() > 0){
@@ -148,20 +134,6 @@ class Pemohon_m extends MY_Model
         }else{
             $dropdown[''] = 'Belum Ada Tingkat Pendidikan Tersedia';
         }
-		return $dropdown;
-    }
-    
-    public function get_tahun()
-	{
-		$dropdown[''] = 'Pilih Periode';
-		$awal = date('Y')+1;
-		$akhir = date('Y')+3;
-		
-		for ($i=$awal ; $i <= $akhir; $i++)
-		{
-			$dropdown[$i] = $i;
-		}
-		
 		return $dropdown;
 	}
 }

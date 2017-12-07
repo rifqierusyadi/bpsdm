@@ -70,7 +70,8 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-print"></i> Laporan <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
                 <li><a href="<?= site_url('report/pemohon'); ?>" target="_BLANK"><i class="fa fa-file-text-o"></i> Pemohon Approve</a></li>
-                <li><a href="<?= site_url('report/pemohon/pending'); ?>" target="_BLANK"><i class="fa fa-file-text-o"></i> Pemohon Pending</a></li>
+                <li><a href="<?= site_url('report/pending'); ?>" target="_BLANK"><i class="fa fa-file-text-o"></i> Pemohon Pending</a></li>
+                <li><a href="<?= site_url('report/registrasi'); ?>" target="_BLANK"><i class="fa fa-file-text-o"></i> Daftar Registrasi</a></li>
               </ul>
             </li>
 						<li><a href="<?= site_url('setting/informasi'); ?>"><i class="fa fa-feed"></i> Informasi</a></li>

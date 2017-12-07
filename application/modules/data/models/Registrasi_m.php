@@ -40,9 +40,10 @@ class Registrasi_m extends MY_Model
 	//urusan lawan datatable
     private function _get_datatables_query()
     {
-        $this->db->select('a.*, b.pengelola');
+        $this->db->select('a.*, b.pengelola, c.tmlahir, c.tglahir, c.sex, c.agama_id, c.alamat, c.instansi, c.unker, c.satker, c.jabatan, c.jenis_id, c.eselon_id, c.pangkat_id, c.ktpu_id, c.jurusan, c.tahun');
 		$this->db->from('users a');
-		$this->db->join('ref_pengelola b','a.pengelola_id = b.kode','LEFT');
+        $this->db->join('ref_pengelola b','a.pengelola_id = b.kode','LEFT');
+        $this->db->join('identitas c','a.id = c.user_id','LEFT');
 		//$this->db->from($this->table);
         $i = 0;
         foreach ($this->column_search as $item) // loop column 

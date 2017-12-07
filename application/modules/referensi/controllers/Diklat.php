@@ -66,7 +66,7 @@ class Diklat extends CI_Controller {
             $no++;
             $col = array();
             $col[] = '<input type="checkbox" class="data-check" value="'.$row->id.'">';
-            $col[] = $row->kategori_id == 1 ? 'STRUKTURAL' : 'ADMINISTRATOR';
+            $col[] = kategori($row->kategori_id);
             $col[] = $row->jenis;
             $col[] = $row->jenjang;
             $col[] = $row->diklat;

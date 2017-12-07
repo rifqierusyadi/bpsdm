@@ -13,7 +13,7 @@
     <div class="page">
 	<div class="title">
             <div class="logo"><img src="<?php echo base_url('asset/dist/img/kalsel-114.png'); ?>" width="36px"></div>
-            <div class="judul"><h3>DAFTAR SARANA PRASARAN<br>RUANG PEMBELAJARAN PENUNJANG<br>PEMERINTAH PROVINSI KALIMANTAN SELATAN</h3></div>
+            <div class="judul"><h3>DAFTAR PEMOHON DIKLAT YANG BELUM DI PROSES/DITOLAK<br>BADAN PENGEMBANGAN SUMBER DAYA MANUSIA<br>PEMERINTAH PROVINSI KALIMANTAN SELATAN</h3></div>
     </div>
 	<!-- identitas -->
 	<div class="tabel">
@@ -21,10 +21,16 @@
 		<thead>
 		<tr>
 			<th width="6px;">NO</th>
-			<th>JENIS</th>
-			<th>KETUNAAN</th>
-			<th>RASIO</th>
-			<th>DESKRIPSI</th>
+			<th>Kode</th>
+			<th>NIP</th>
+			<th>Nama Lengkap</th>
+			<th>Instansi</th>
+			<th>Unit Kerja</th>
+			<th>Satuan Kerja</th>
+			<th>Diklat</th>
+			<th>Jenjang</th>
+			<th>Periode</th>
+			<th>Keterangan</th>
 		</tr>
 		</thead>
 		<tbody>
@@ -33,10 +39,16 @@
 			<?php foreach($record as $row): ?>
 			<tr>
 			<td><?php echo number_format($i).'.'; ?></td>
-			<td class="text" nowrap><?php echo $row->jenis; ?></td>
-			<td class="text"><?php echo tuna($row->tuna_id); ?></td>
-			<td class="text"><?php echo $row->rasio; ?></td>
-			<td class="text"><?php echo $row->deskripsi; ?></td>
+			<td class="text" nowrap><?php echo $row->kode; ?></td>
+			<td class="text" nowrap><?php echo $row->nip; ?></td>
+			<td class="text"><?php echo $row->nama; ?></td>
+			<td class="text"><?php echo $row->instansi; ?></td>
+			<td class="text"><?php echo $row->unker; ?></td>
+			<td class="text"><?php echo $row->satker; ?></td>
+			<td class="text"><?php echo kategori($row->kategori_id); ?></td>
+			<td class="text"><?php echo jenjang($row->jenjang_id); ?></td>
+			<td class="text"><?php echo $row->periode; ?></td>
+			<td class="text"><?php echo $row->keterangan ? $row->keterangan : '-'; ?></td>
 			</tr>
 			<?php ++$i; ?>
 			<?php endforeach; ?>
